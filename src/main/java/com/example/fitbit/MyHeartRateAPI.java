@@ -11,12 +11,12 @@ import java.util.concurrent.ExecutionException;
 
 @Log4j2
 @RestController
-public class MyHeartRate {
+public class MyHeartRateAPI {
 
   private final FitbitProxy fitbitProxy;
 
   @Autowired
-  public MyHeartRate(FitbitProxy fitbitProxy) {
+  public MyHeartRateAPI(FitbitProxy fitbitProxy) {
     this.fitbitProxy = fitbitProxy;
   }
 
