@@ -3,3 +3,6 @@ fitbit:
     clientId: # Here's your id
     clientSecret: # Here's your code
     callbackURL: # Here's your url
+access:
+  logging:
+    path: /tmp/gakuseki.txt
