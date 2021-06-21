@@ -34,7 +34,7 @@ public class MyHeartRateAPI {
 
   @GetMapping("heart")
   public FitbitProxy.IntradayHeartRate heart(@RequestParam String gakuseki) throws IOException, ExecutionException, InterruptedException {
-    accessLogger.logForAPI(gakuseki);
+    accessLogger.logOnAPI(gakuseki);
     return fitbitProxy.getHeartRate();
   }
 }

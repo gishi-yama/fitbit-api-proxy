@@ -12,45 +12,48 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Pattern;
 
 @Component
-public class FitBitWebSocketHandler extends TextWebSocketHandler {
+public class MyHeartRateEdge extends TextWebSocketHandler {
 
   private final FitbitProxy fitbitProxy;
   private final ObjectMapper mapper;
   private final PlainAccessLogger accessLogger;
   private final List<WebSocketSession> heldSessions;
 
-  private static final Pattern pattern = Pattern.compile("^gakuseki=([b|p|m]{1}[0-9]{7})");
-
+  private static final Pattern GAKUSEKI_QUERY_PATTERN = Pattern.compile("^gakuseki=([bdmp][0-9]{7})");
 
   @Autowired
-  public FitBitWebSocketHandler(FitbitProxy fitbitProxy, ObjectMapper mapper, PlainAccessLogger accessLogger) {
+  public MyHeartRateEdge(FitbitProxy fitbitProxy, ObjectMapper mapper, PlainAccessLogger accessLogger) {
     this.fitbitProxy = fitbitProxy;
     this.mapper = mapper;
     this.accessLogger = accessLogger;
     this.heldSessions = new ArrayList<>();
   }
 
-
   @Override
   public void afterConnectionEstablished(WebSocketSession session) throws Exception {
     if (newerSession(session)) {
-      var array = session.getUri().getQuery().split("&");
-      String gakuseki = Arrays.stream(array)
-        .map(this::gakusekiFrom)
-        .filter(StringUtils::hasText)
-        .findFirst().orElseThrow(() -> new RuntimeException("学籍番号がない"));
-      accessLogger.logForEdge(gakuseki);
+      String gakuseki = splitGakusekiFromQueryOf(session);
+      accessLogger.logOnEdge(gakuseki);
       heldSessions.add(session);
     }
     session.sendMessage(makeMessage());
   }
 
-  String gakusekiFrom(String query) {
-    var matcher = pattern.matcher(query);
+  String splitGakusekiFromQueryOf(WebSocketSession session) {
+    var array = Objects.requireNonNull(session.getUri()).getQuery().split("&");
+    return Arrays.stream(array)
+      .map(MyHeartRateEdge::gakusekiFrom)
+      .filter(StringUtils::hasText)
+      .findFirst().orElseThrow(() -> new RuntimeException("学籍番号がない"));
+  }
+
+  static String gakusekiFrom(String query) {
+    var matcher = GAKUSEKI_QUERY_PATTERN.matcher(query);
     if (matcher.matches()) {
       return matcher.group(1);
     }

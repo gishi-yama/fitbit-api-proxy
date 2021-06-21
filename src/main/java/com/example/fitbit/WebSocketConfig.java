@@ -10,10 +10,10 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 @EnableWebSocket
 public class WebSocketConfig implements WebSocketConfigurer {
 
-  private final FitBitWebSocketHandler fitBitWebSocketHandler;
+  private final MyHeartRateEdge fitBitWebSocketHandler;
 
   @Autowired
-  public WebSocketConfig(FitBitWebSocketHandler fitBitWebSocketHandler) {
+  public WebSocketConfig(MyHeartRateEdge fitBitWebSocketHandler) {
     this.fitBitWebSocketHandler = fitBitWebSocketHandler;
   }
 

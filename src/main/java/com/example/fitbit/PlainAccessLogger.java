@@ -23,12 +23,12 @@ public class PlainAccessLogger {
   @Value("${access.logging.path}")
   private String loggingPath;
 
-  public void logForAPI(String gakuseki) {
+  public void logOnAPI(String gakuseki) {
     String format = String.format("WebAPI,%s", Objects.requireNonNull(gakuseki));
     writeFile(format);
   }
 
-  public void logForEdge(String gakuseki) {
+  public void logOnEdge(String gakuseki) {
     String format = String.format("WebSocket,%s", Objects.requireNonNull(gakuseki));
     writeFile(format);
   }
