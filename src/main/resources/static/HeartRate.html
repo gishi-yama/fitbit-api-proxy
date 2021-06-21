@@ -16,8 +16,8 @@
 
 <script type="text/javascript">
 
-  // 127.0.0.1 の部分は、指示に従って書き換える
-  const ep = 'ws://127.0.0.1:8080/edge?gakuseki=b1992490';
+  // xxxxxxxx の部分は、あなたの学籍番号に書き換える
+  const ep = 'ws://127.0.0.1:8080/edge?gakuseki=xxxxxxxx';
 
   // ボタンを押したときに動く関数
   function connect() {
@@ -60,6 +60,11 @@
             label: {text: '時刻'},
             type: 'category',
             tick: {culling: true, fit: false, width: 200}
+          },
+          y: {
+            label: {text: '心拍数'},
+            max: 120,
+            min: 40
           }
         },
         grid: {
