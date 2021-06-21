@@ -14,10 +14,12 @@ import java.util.concurrent.ExecutionException;
 public class MyHeartRateAPI {
 
   private final FitbitProxy fitbitProxy;
+  private final PlainAccessLogger accessLogger;
 
   @Autowired
-  public MyHeartRateAPI(FitbitProxy fitbitProxy) {
+  public MyHeartRateAPI(FitbitProxy fitbitProxy, PlainAccessLogger accessLogger) {
     this.fitbitProxy = fitbitProxy;
+    this.accessLogger = accessLogger;
   }
 
   @GetMapping("auth")
@@ -31,7 +33,8 @@ public class MyHeartRateAPI {
   }
 
   @GetMapping("heart")
-  public FitbitProxy.IntradayHeartRate heart() throws IOException, ExecutionException, InterruptedException {
+  public FitbitProxy.IntradayHeartRate heart(@RequestParam String gakuseki) throws IOException, ExecutionException, InterruptedException {
+    accessLogger.log(gakuseki);
     return fitbitProxy.getHeartRate();
   }
 }

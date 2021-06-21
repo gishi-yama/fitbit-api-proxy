@@ -28,6 +28,10 @@ public class PlainAccessLogger {
     var query = uri.getQuery();
     Optional.ofNullable(query).ifPresent(this::writeFile);
   }
+  
+  public void log(String gakuseki) {
+    Optional.ofNullable(gakuseki).ifPresent(this::writeFile);
+  }
 
   private void writeFile(String query) {
     if (!StringUtils.hasText(loggingPath)) {

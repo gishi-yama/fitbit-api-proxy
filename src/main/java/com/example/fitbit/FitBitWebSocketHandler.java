@@ -17,12 +17,14 @@ public class FitBitWebSocketHandler extends TextWebSocketHandler {
 
   private final FitbitProxy fitbitProxy;
   private final ObjectMapper mapper;
+  private final PlainAccessLogger accessLogger;
   private final List<WebSocketSession> heldSessions;
 
   @Autowired
-  public FitBitWebSocketHandler(FitbitProxy fitbitProxy, ObjectMapper mapper) {
+  public FitBitWebSocketHandler(FitbitProxy fitbitProxy, ObjectMapper mapper, PlainAccessLogger accessLogger) {
     this.fitbitProxy = fitbitProxy;
     this.mapper = mapper;
+    this.accessLogger = accessLogger;
     this.heldSessions = new ArrayList<>();
   }
 
@@ -30,7 +32,7 @@ public class FitBitWebSocketHandler extends TextWebSocketHandler {
   @Override
   public void afterConnectionEstablished(WebSocketSession session) throws Exception {
     if (newerSession(session)) {
-//      Optional.ofNullable(session.getUri()).ifPresent(learningLog::log);
+      accessLogger.log(session.getUri());
       heldSessions.add(session);
     }
     session.sendMessage(makeMessage());
