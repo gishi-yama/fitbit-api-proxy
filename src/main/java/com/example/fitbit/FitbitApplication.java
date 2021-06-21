@@ -10,8 +10,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 public class FitbitApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(FitbitApplication.class, args);
-	}
+  public static void main(String[] args) {
+    SpringApplication.run(FitbitApplication.class, args);
+  }
 
 }
