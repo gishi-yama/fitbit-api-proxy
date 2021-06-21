@@ -1,9 +1,12 @@
 package com.example.fitbit;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
@@ -16,6 +19,7 @@ import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Pattern;
 
+@Log4j2
 @Component
 public class MyHeartRateEdge extends TextWebSocketHandler {
 
@@ -41,7 +45,33 @@ public class MyHeartRateEdge extends TextWebSocketHandler {
       accessLogger.logOnEdge(gakuseki);
       heldSessions.add(session);
     }
-    session.sendMessage(makeMessage());
+    MyHeartRateEdge.send(session, makeMessage());
+  }
+
+  @Scheduled(fixedDelayString = "PT15M")
+  public void pushMessage() throws IOException, ExecutionException, InterruptedException {
+    log.info("push message to " + heldSessions.size() + " clients.");
+    var newMessage = makeMessage();
+    heldSessions.stream()
+      .filter(WebSocketSession::isOpen)
+      .forEach(held -> MyHeartRateEdge.send(held, newMessage));
+  }
+
+  @Override
+  public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+    heldSessions.removeIf(held -> isSameId(held, session));
+  }
+
+  static void send(WebSocketSession session, TextMessage message) {
+    try {
+      session.sendMessage(message);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  static boolean isSameId(WebSocketSession session1, WebSocketSession session2) {
+    return Objects.equals(session1.getId(), session2.getId());
   }
 
   String splitGakusekiFromQueryOf(WebSocketSession session) {
@@ -62,7 +92,7 @@ public class MyHeartRateEdge extends TextWebSocketHandler {
 
   boolean newerSession(WebSocketSession session) {
     return heldSessions.stream()
-      .noneMatch(held -> held.getId().equals(session.getId()));
+      .noneMatch(held -> isSameId(held, session));
   }
 
   TextMessage makeMessage() throws IOException, ExecutionException, InterruptedException {

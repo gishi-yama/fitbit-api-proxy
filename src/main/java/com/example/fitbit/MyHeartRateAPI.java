@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 @Log4j2
@@ -33,7 +34,7 @@ public class MyHeartRateAPI {
   }
 
   @GetMapping("heart")
-  public FitbitProxy.IntradayHeartRate heart(@RequestParam String gakuseki) throws IOException, ExecutionException, InterruptedException {
+  public List<FitbitProxy.OnetimeHeartRate> heart(@RequestParam String gakuseki) throws IOException, ExecutionException, InterruptedException {
     accessLogger.logOnAPI(gakuseki);
     return fitbitProxy.getHeartRate();
   }

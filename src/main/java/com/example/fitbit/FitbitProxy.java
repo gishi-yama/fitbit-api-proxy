@@ -64,12 +64,12 @@ public class FitbitProxy {
     return "認証完了";
   }
 
-  public IntradayHeartRate getHeartRate() throws IOException, ExecutionException, InterruptedException {
+  public List<OnetimeHeartRate> getHeartRate() throws IOException, ExecutionException, InterruptedException {
     getCachedResponseBody();
     FitBitHeartActivity heartActivity = objectMapper.readValue(responseBody, FitBitHeartActivity.class);
     IntradayHeartRate intradayHeartRate = heartActivity.intraDay();
     log.info(intradayHeartRate.dataset.size());
-    return intradayHeartRate;
+    return intradayHeartRate.dataset;
   }
 
   @Cacheable("responseBody")
