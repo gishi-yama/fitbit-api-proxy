@@ -9,6 +9,7 @@
 <body>
 <p>当日0時から24時の山川の心拍数を取得し、グラフ化します。</p>
 <p>新しいデータは約15分ごとに自動的に配信されます。</p>
+<p>FitBitを外している時、通信状態が悪い時には、データが更新されなかったり、記録されているデータが飛び飛びになることもあります（できるだけ発生しないようには心がけます）。
 <p>最後にデータが配信されたのは <span id="refreshAt">?</span> です。</p>
 
 <div id="chart"></div>
@@ -17,65 +18,67 @@
 <script type="text/javascript">
 
   // xxxxxxxx の部分は、あなたの学籍番号に書き換える
-  const ep = 'wss://mcom.jp.ngrok.io/edge?gakuseki=xxxxxxxx';
+  let ep = "wss://mcom.jp.ngrok.io/edge?gakuseki=xxxxxxxx";
 
   // ボタンを押したときに動く関数
   function connect() {
     // WebSocket通信用を準備する
-    const ws = new WebSocket(ep);
+    let ws = new WebSocket(ep);
 
     // WebSocket でAPIにアクセスしたときに動く関数
     ws.onopen = function () {
-      console.log("open.");
+      console.log("WebSocketで接続しました");
       // ボタン用のHTMLを消す
-      const btnTag = document.getElementById('btn');
-      btnTag.style.display = 'none';
+      let btnTag = document.getElementById("btn");
+      btnTag.style.display = "none";
     };
 
     // WebSocket から情報が流れてきたときに動く関数
     ws.onmessage = function (evt) {
 
       // WebSocket から取得した情報を JSON 形式にする
-      const jsonData = JSON.parse(evt.data);
+      let jsonData = JSON.parse(evt.data);
+      console.log("データ件数:" + jsonData.length)
 
       // JSonデータの一番最後の時間を取得して、HTMLの refreshAt に表示する
-      const lastOne = jsonData.slice(-1)[0];
-      const refreshTag = document.getElementById('refreshAt');
+      let lastOne = jsonData.slice(-1)[0];
+      let refreshTag = document.getElementById("refreshAt");
       refreshTag.innerHTML = lastOne.time;
 
       // グラフを表示する
       c3.generate({
-        bindto: '#chart',
+        bindto: "#chart",
         data: {
           json: jsonData,
           keys: {
-            x: 'time', value: ['value']
+            x: "time", value: ["value"]
           },
           names: {
-            value: '心拍数'
+            value: "心拍数"
           }
         },
         axis: {
           x: {
-            label: {text: '時刻'},
-            type: 'category',
+            label: {text: "時刻"},
+            type: "category",
             tick: {culling: true, fit: false, width: 200}
           },
           y: {
-            label: {text: '心拍数'},
-            max: 120,
+            label: {text: "心拍数"},
+            max: 160,
             min: 40
           }
         },
         grid: {
           y: {
             lines: [
-              {value: 90, text: '↑カロリー燃焼', position: 'start'},
-              {value: 56, text: '↓睡眠', position: 'start'}
+              {value: 90, text: "↑カロリー燃焼", position: "start"},
+              {value: 56, text: "↓安静時", position: "end"}
             ]
           }
         }
       });
+
     };
   };
 </script>
