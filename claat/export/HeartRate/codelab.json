@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2021-06-23T01:03:30+09:00",
+  "id": "HeartRate",
+  "duration": 0,
+  "title": "センシングデータの利用実習（第2回）",
+  "summary": "",
+  "source": "HeartRate/HeartRate.md",
+  "theme": "",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "js"
+  ],
+  "tags": [
+    "web"
+  ],
+  "feedback": "mailto:cist-mcom-qa@googlegroups.com",
+  "url": "HeartRate"
+}
