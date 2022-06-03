@@ -3,7 +3,7 @@ id: JSTraining
 categories:JS
 status: Draft
 environments: Web
-feedback link: mailto:cist-mcom-qa@googlegroups.com
+feedback link: mailto:cist-ppu-qa@googlegroups.com
 
 # センシングデータの利用実習（第1回）
 
