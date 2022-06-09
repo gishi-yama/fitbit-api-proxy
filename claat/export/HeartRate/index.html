@@ -25,7 +25,7 @@
                   id="HeartRate"
                   title="センシングデータの利用実習（第2回）"
                   environment="web"
-                  feedback-link="mailto:cist-mcom-qa@googlegroups.com">
+                  feedback-link="mailto:cist-ppu-qa@googlegroups.com">
     
       <google-codelab-step label="はじめに" duration="0">
         <aside class="warning"><p>〈実演〉と書かれている部分は、皆さんが実際に操作する必要がある部分です。<br> 〈解説〉と書かれている部分は、前提となる知識などについて解説だけしている部分です。<br> 〈挑戦〉と書かれている部分は、そこまでの内容を理解しているか、自分でチャレンジをしてみてください。</p>
@@ -36,15 +36,15 @@
 <h3 is-upgraded>(1) 〈実演〉 HeatRate.htmlのダウンロード</h3>
 <p>ポータルから <code>HeartRate.html</code> をダウンロードする。</p>
 <p>ダウンロードした <code>HeartRate.html</code> を、手元のPCのブラウザにドラッグアンドドロップして、以下のような画面がブラウザに表示されていることを確認する。</p>
-<p class="image-container"><img alt="動作確認" src="img/ac96ddf911aae7ca.png"></p>
+<p class="image-container"><img alt="動作確認" src="img/5e078c86b8d0e2f6.png"></p>
 <p>このファイルにJSを組み込み、ある被験者が身につけているウェアラブルデバイスから、（ほぼ）リアルタイムな心拍数を取得できるようにする。</p>
 <p>実習が成功すると、皆さんは離れた場所にいながら、他者の活動量（心拍数から予想される、活動の活発さや生活のリズム）を手元で把握できるようになるということである。</p>
 <p>完成予定図は、以下のようになる。</p>
-<p class="image-container"><img alt="完成予定図" src="img/80e51504dbe34a92.png"></p>
+<p class="image-container"><img alt="完成予定図" src="img/782d0f89892f1862.png"></p>
 <p>今回の実習では、<strong>IoTシステムとしてもっとも基本的な「モノ（今回は、教員自身）が生体・環境の情報（今回は、心拍数）を、インターネットを通じて自動的に送信する」部分を体験</strong> している。</p>
 <p>もしこれらの仕組みを拡充し、<strong>被験者を増やす・長期間運用することでデータ件数を増やすなどの方法でビッグデータ化</strong> したり、その上で、<strong>蓄積されたデータを高度に組み合わせ応用する・AI技術などを用いるなどの方法でデータ活用する</strong> ことができれば、対象となる場所を利用する人間に有用な情報サービスや、場所自体をよりよくする情報サービスを提供できる可能性がある。</p>
 <p>こうした雰囲気や可能性を、実習を通じて体験する。</p>
-<aside class="warning"><p>この実習では、1日ごとに心拍数が送られてくる。したがって、深夜0時頃はデータが取得できていない状態から始まる。<strong>実習や最後の動作確認は、日中のコアタイムや22時ごろまで</strong> に行うとよい。<br> また、被験者が何らかの理由（充電など）でウェラブルデバイスを外している場合や、通信状況が悪い場合（地下鉄での移動中など）はデータが途中で途切れたり、歯抜けになることもある。極力起こらないようにしたいが、長時間の発生が予想される場合は、連絡掲示で報告する。</p>
+<aside class="warning"><p>この実習では、0時から24時までの心拍数が送られてくる。したがって、日付が変わった直後はデータが取得できていない状態から始まる。<strong>実習や最後の動作確認は、日中のコアタイムや22時ごろまで</strong> に行うとよい。<br> また、被験者が何らかの理由（充電など）でウェラブルデバイスを外している場合や、通信状況が悪い場合（地下鉄での移動中など）はデータが途中で途切れたり、歯抜けになることもある。極力起こらないようにしたいが、長時間の発生が予想される場合は、連絡掲示で報告する。</p>
 </aside>
 
 
@@ -52,11 +52,11 @@
     
       <google-codelab-step label="HTMLファイルの内容確認" duration="0">
         <h2 is-upgraded>〈解説〉HeartRate.htmlの内容</h2>
-<p><code>HeartRate.html</code> を、 <strong>手元のPCのメモ帳やテキストエディタで</strong> 開く。（他に普段利用しているテキスト編集ソフトがあれば、それを使ってもかまいません。 <strong>ただし、スマホアプリのメモ帳やワープロソフトは結果が変わってしまうことが多いので、オススメしません</strong>）</p>
+<p><code>HeartRate.html</code> を、 <strong>手元のPCのメモ帳などで</strong> 開く。（他に普段利用しているテキスト編集ソフトがあれば、それを使ってもかまいません。 <strong>ただし、スマホアプリのメモ帳やワープロソフトは結果が変わってしまうことが多いので、オススメしません</strong> ）</p>
 <p>メモ帳やテキストエディタに、以下のような文章が表示されることを確認する。</p>
-<p class="image-container"><img alt="コード例01" src="img/4b60ce74c34ba76b.png"></p>
-<p>ここで、<code>&lt;link href=... &lt;/link&gt;</code> の部分や、 <code>&lt;script src=&#34;... &lt;/script&gt;</code> の部分は、あなたのプログラムに「グラフを描画できる機能」を提供してくれるライブラリを読み込んでいる。（ライブラリの役割は、授業の動画で解説している）</p>
-<p>画面を表示するHyperTextには、それぞれの部分に <code>id</code> が名前としてつけられている。JSでは、名前をつけられた部分がどのように画面に表示されるか、スクリプトで書き換えることができることは、前回の実習で練習をした通りである。</p>
+<p class="image-container"><img alt="コード例01" src="img/b3b969a53ea79db1.png"></p>
+<p>ここで、<code>&lt;link href=... &lt;/link&gt;</code> の部分や、 <code>&lt;script src="... &lt;/script&gt;</code> の部分は、あなたのプログラムに「グラフを描画できる機能」を提供してくれるライブラリを読み込んでいる。（ライブラリの役割は、授業の動画で解説している）</p>
+<p>画面を表示するHyperTextには、それぞれの部分に <code>id</code> が名前としてつけられている。JSでは、名前をつけられた部分がどのように画面に表示されるか、スクリプトで書き換えられることは、前回の実習で練習をした通りである。</p>
 
 
       </google-codelab-step>
@@ -88,10 +88,10 @@
 <p><code>ws.onopen = ...</code> の部分は、<strong>WebSocketエンドポイントに接続が成功した場合の関数を宣言している</strong> 。</p>
 <p><code>connect</code> 関数の中のプログラムでは、接続が成功すると、ブラウザの画面上に <strong>WebSocketで接続しました</strong> という警告ダイアログが表示されるようにしている。また、</p>
 <p class="image-container"><img alt="コード例06" src="img/ccdb8642cfbe62c6.png"></p>
-<p>の部分は、HyperTextの中の <code>&#34;btn&#34;</code> つまり、ボタン部分のタグを非表示にするスクリプトである。</p>
+<p>の部分は、HyperTextの中の <code>"btn"</code> つまり、ボタン部分のタグを非表示にするスクリプトである。</p>
 <h2 is-upgraded>実行する</h2>
 <p>ブラウザで <code>HeartRate.html</code> を再表示する（ドラッグアンドドロップでも、ブラウザの更新ボタンでも良いです）。</p>
-<p><strong>表示された画面で「送信」ボタンを押し、警告ダイアログが表示され、送信ボタン自体が消えれば、WebSocketエンドポイントに接続が成功</strong> している（クラウドの利用状況によっては時間がかかる場合もある。変化がない場合は5~7秒程度待つ）。</p>
+<p><strong>表示された画面で「送信」ボタンを押し、警告ダイアログが表示され、送信ボタン自体が消えれば、WebSocketエンドポイントに接続が成功</strong> している（クラウドの利用状況によっては時間がかかる場合もある。変化がない場合は5~ 7秒程度待つ）。</p>
 <p class="image-container"><img alt="成功ダイアログ" src="img/27ff433bdea8433b.png"></p>
 <p><strong>時間が経ってもダイアログが表示されなかったり、送信ボタンが消えない場合は接続に失敗している</strong> ので、スクリプトの記載のミスなどがないか確認する。</p>
 
@@ -107,7 +107,25 @@
 <p><code>ws.onmessage = ...</code> の部分は、<strong>WebSocketエンドポイントからデータが送られた場合の関数を宣言</strong> している。</p>
 <p><code>evt</code> 変数は、エンドポイントから遅れてきた生のデータ、 <code>message</code> 変数にあてはめた <code>evt.data</code> は、 <code>evt</code> の生データから、処理に必要な部分のみを切り出したものである。</p>
 <p>このスクリプトを実行すると、心拍数のデータが</p>
-<pre><code language="language-json" class="language-json">[{&#34;time&#34;:&#34;00:00:00&#34;,&#34;value&#34;:59},{&#34;time&#34;:&#34;00:01:00&#34;,&#34;value&#34;:59},{&#34;time&#34;:&#34;00:02:00&#34;,&#34;value&#34;:60},{&#34;time&#34;:&#34;00:03:00&#34;,&#34;value&#34;:59}...]
+<pre><code language="language-json" class="language-json">[
+  {
+    &#34;time&#34;: &#34;00:00:00&#34;,
+    &#34;value&#34;: 59
+  },
+  {
+    &#34;time&#34;: &#34;00:01:00&#34;,
+    &#34;value&#34;: 59
+  },
+  {
+    &#34;time&#34;: &#34;00:02:00&#34;,
+    &#34;value&#34;: 60
+  },
+  {
+    &#34;time&#34;: &#34;00:03:00&#34;,
+    &#34;value&#34;: 59
+  }
+  ...
+]
 </code></pre>
 <p>のような、<strong>0時からの記録時間と心拍数の値の配列状のデータ</strong> として取得できる。<strong>こうしたデータ形式がJSON形式</strong> である。</p>
 <h3 is-upgraded>実行する</h3>
@@ -120,8 +138,7 @@
 <p>2箇所の <code>alert</code> の部分を <code>console.log</code> に書き換えると、接続成功メッセージや、データ件数は表示されなくなり、ブラウザの中で処理される。</p>
 <p class="image-container"><img alt="コード例08" src="img/884e71e4b1220f6b.png"></p>
 <p class="image-container"><img alt="コード例09" src="img/219e5e25b9ca9bb9.png"></p>
-<aside class="warning"><p><code>console.log</code> に書かれたメッセージは、ブラウザの開発モードなどで確認できようになる。興味がある学生は調べてみるとよい。</p>
-</aside>
+<p>Negative : <code>console.log</code> に書かれたメッセージは、ブラウザの開発モードなどで確認できようになる。興味がある学生は調べてみるとよい。</p>
 
 
       </google-codelab-step>
@@ -198,15 +215,15 @@ c3.generate({
 <h3 is-upgraded>〈解説〉</h3>
 <p>これは、HyperText上に読み込んでいるライブラリ: c3.js でグラフを表示する部分である。</p>
 <p>ライブラリは、</p>
-<pre><code language="language-html" class="language-html"> &lt;script src=&#34;https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.min.js&#34;&gt;&lt;/script&gt;
-  &lt;script src=&#34;https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.js&#34;&gt;&lt;/script&gt;
+<pre><code language="language-html" class="language-html">&lt;script src=&#34;https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.js&#34;&gt;&lt;/script&gt;
 </code></pre>
 <p>の部分で読み込みされている。</p>
 <p><code>c3.generate...</code> の部分で、グラフの設定を行っている。代表的な設定内容だけを解説すると、</p>
 <ul>
 <li><code>bindto</code> は、グラフをさしこむタグのidを指定する</li>
 <li><code>data</code> は、グラフに表示するJSONデータを指定し、x軸に表示するデータの値や、心拍数の値の名前を設定する。</li>
-<li><code>axis</code> は、軸の詳細を設定する。  <ul>
+<li><code>axis</code> は、軸の詳細を設定する。 <ul>
 <li><code>x</code> は、x軸に表示する内容や、個数を設定する。</li>
 <li><code>y</code> は、y軸に表示する内容や、最大・最小値を設定する。</li>
 </ul>
@@ -216,7 +233,7 @@ c3.generate({
 <h3 is-upgraded>実行する</h3>
 <p>ブラウザで <code>HeartRate.html</code> を再表示する（ドラッグアンドドロップでも、ブラウザの更新ボタンでも良いです）。</p>
 <p>表示された画面で「送信」ボタンを押すと、これまでの情報に加え、折れ線グラフで1日の心拍数が可視化される。</p>
-<p class="image-container"><img alt="反映箇所" src="img/80e51504dbe34a92.png"></p>
+<p class="image-container"><img alt="反映箇所" src="img/782d0f89892f1862.png"></p>
 <h3 is-upgraded>スクリプトの最終形</h3>
 <p>最終的な課題のスクリプト全文を載せておく。うまく動かない場合は参考にしてよい。</p>
 <p class="image-container"><img alt="スクリプトの最終形" src="img/2d41ed1e1625a418.png"></p>
@@ -225,15 +242,15 @@ c3.generate({
       </google-codelab-step>
     
       <google-codelab-step label="挑戦（レポート課題）" duration="0">
-        <p>あなたが表示できるようにしたグラフを見て、ある日の被験者の行動を推測しましょう。</p>
+        <p>あなたが表示できるようにしたグラフを見て、ある日の山川の行動を推測しましょう。</p>
 <h2 is-upgraded>1. 睡眠時間</h2>
-<p>心拍数56以下が続いている時間は、主に睡眠をしている時間と推測される。あなたがグラフを表示した日、被験者はどの程度睡眠しているか。</p>
+<p>心拍数56以下が続いている時間は、主に睡眠をしている時間と推測される。あなたがグラフを表示した日、山川はどの程度睡眠しているか。</p>
 <h2 is-upgraded>2. 平静にしている時間</h2>
-<p>心拍数56〜90の間が続いている時間は、椅子に座るなど、平静にしている時間と推測される。あなたがグラフを表示した日、被験者はどの程度平静にしているか。</p>
+<p>心拍数56〜90の間が続いている時間は、椅子に座るなど、平静にしている時間と推測される。あなたがグラフを表示した日、山川はどの程度平静にしているか。</p>
 <h2 is-upgraded>3. 積極的に活動している時間</h2>
-<p>心拍数が90以上が続いている時間は、体を動かしたり、体に負担がかかるような活動をしている時間と推測される。あなたがグラフを表示した日、被験者はどの程度積極的に活動しているか。</p>
+<p>心拍数が90以上が続いている時間は、体を動かしたり、体に負担がかかるような活動をしている時間と推測される。あなたがグラフを表示した日、山川はどの程度積極的に活動しているか。</p>
 <h2 is-upgraded>4. 被験者へのアドバイス</h2>
-<p>上記1-3の情報をもとに、被験者がより「健康的に過ごしたい」と悩んでいたとしたら、あなたはどのような助言を考えるか。<strong>あなた自身がAIになったつもりで</strong>、判断が必要なデータがあればWebや書籍で調べた上で、助言を考えてください。</p>
+<p>上記1-3の情報をもとに、山川が「健康的に過ごしたい」と悩んでいたとしたら、あなたはどのような助言を考えるか。 <strong>あなた自身がAIになったつもりで</strong>、判断が必要なデータがあればWebや書籍で調べた上で、助言を考えなさい。</p>
 <p>上記の内容について、課題ページに示したGoogle Formから投稿しなさい。</p>
 
 

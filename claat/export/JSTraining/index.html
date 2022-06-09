@@ -25,7 +25,7 @@
                   id="JSTraining"
                   title="センシングデータの利用実習（第1回）"
                   environment="web"
-                  feedback-link="mailto:cist-mcom-qa@googlegroups.com">
+                  feedback-link="mailto:cist-ppu-qa@googlegroups.com">
     
       <google-codelab-step label="はじめに" duration="0">
         <aside class="warning"><p>〈実演〉と書かれている部分は、皆さんが実際に操作する必要がある部分です。<br> 〈解説〉と書かれている部分は、前提となる知識などについて解説だけしている部分です。<br> 〈挑戦〉と書かれている部分は、そこまでの内容を理解しているか、自分でチャレンジをしてみてください。</p>
@@ -36,11 +36,12 @@
 <p>ダウンロードした <code>JSTraining.html</code> を、手元のPCのブラウザにドラッグアンドドロップして表示してください。</p>
 <p class="image-container"><img alt="ブラウザへのドラッグアンドドップ" src="img/1c6c510c9db81b8.png"></p>
 <p>以下のような画面がブラウザに表示されていることを確認してください。</p>
-<p class="image-container"><img alt="動作確認" src="img/8659560460c31ddf.png"></p>
+<p class="image-container"><img alt="動作確認" src="img/2afb01f735985912.png"></p>
 <h3 is-upgraded>(2)  〈実演〉JSTraining.htmlの編集</h3>
-<p><code>JSTraining.html</code> を、 <strong>手元のPCのメモ帳やテキストエディタで</strong> 開いてください。（他に普段利用しているテキスト編集ソフトがあれば、それを使ってもかまいません。 <strong>ただし、スマホアプリのメモ帳やワープロソフトは結果が変わってしまうことが多いので、オススメしません</strong>）</p>
-<p>メモ帳やテキストエディタに、以下のような文章が表示されることを確認してください。</p>
-<p class="image-container"><img alt="コード例01" src="img/7f9ceebd36f57987.png"></p>
+<p><code>JSTraining.html</code> を、 <strong>手元のPCのメモ帳やテキストエディタで</strong> 開いてください。（他に普段利用しているテキスト編集ソフトがあれば、それを使ってもかまいません。 <strong>ただし、スマホアプリのメモ帳やワープロソフトは結果が変わってしまうことが多い</strong> ので、オススメしません）</p>
+<p>&lt;a</p>
+<p>メモ帳やテキストエディタに、以下のような文章が表示されることを確認してください。(色合いは、編集しているソフトウェアや利用環境によって異なります)</p>
+<p class="image-container"><img alt="コード例01" src="img/402415358c36963.png"></p>
 <p>これが、 <strong>ブラウザへの画面表示を指示しているHTML（Hyper Text）</strong> です。</p>
 <p><strong>HyperTextを人間が直接書き換えたり、JavaScript（JS）で書き換えることで、ブラウザへの画面表示を変化させる</strong> ことができます。</p>
 <p>ここから先は実際に JS の簡単な文法を練習し、ブラウザに表示されている画面を変化させてみましょう。</p>
@@ -60,7 +61,7 @@
 <p>保存ができたら、ブラウザで <code>JSTraining.html</code> を再表示してみてください（ドラッグアンドドロップでも、ブラウザの更新ボタンでも良いです）。</p>
 <p>以下のように、警告ダイアログが表示されれば成功です。（ブラウザによって、見栄えは異なります）</p>
 <p class="image-container"><img alt="1番目の処理 の表示" src="img/633f2e05d288c6e1.png"></p>
-<p><code>alert</code> は、ブラウザの画面上に警告ダイアログを出す命令です。 書き換えたスクリプトでは <code>1番</code>目の処理 というテキストをブラウザ上の警告ダイアログに表示するよう命令しています。</p>
+<p><code>alert</code> は、ブラウザの画面上に警告ダイアログを出す命令です。 書き換えたスクリプトでは <code>1番目の処理</code> というテキストをブラウザ上の警告ダイアログに表示するよう命令しています。</p>
 <h2 is-upgraded>(2) 〈実演〉順次処理</h2>
 <p>JSは原則、上から書かれているスクリプトの順に命令を実行します。先ほどの警告ダイアログを出す命令を増やしてみましょう。</p>
 <p><strong>手元のファイルを変更してください：</strong></p>
@@ -99,9 +100,11 @@
 <p>警告ダイアログが <strong>16+2は</strong> → <strong>18</strong> の順に表示されましたか？</p>
 <p class="image-container"><img alt="計算結果 の表示" src="img/d7d73276b3be4192.png"></p>
 <h2 is-upgraded>ここでのポイント part.1</h2>
-<p>JavaScriptでは、データが文字列形式の場合は <code>&#34;&#34;</code> や <code>&#39;&#39;</code> でくくり、数値形式の場合はそのまま数値を書きます。</p>
+<p>JavaScriptでは、データが文字列形式の場合は <code>""</code> や <code>''</code> でくくり、数値形式の場合はそのまま数値を書きます。</p>
 <h2 is-upgraded>ここでのポイント part.2</h2>
-<p>JavaScriptの変数宣言では、 <strong>C言語などの変数宣言と違い、「データの形式にあわせて、変数の型を宣言しなくて良い（</strong><code>let</code><strong> の部分を変えなくて良い）」</strong>  ことに注意しましょう。</p>
+<p>JavaScriptの変数宣言では、 <strong>C言語などの変数宣言と違い、「データの形式にあわせて、変数の型を宣言しなくて良い（</strong></p>
+<p><strong><code>let</code></strong></p>
+<p><strong> の部分を変えなくて良い）」</strong>  ことに注意しましょう。</p>
 <p>たとえばＣ言語で同じプログラムを書くと、</p>
 <pre><code language="language-c" class="language-c">// C言語のプログラムではこんな感じになるはず
 char quiz[] = &#34;16+2は&#34;;
@@ -111,7 +114,7 @@ printf(&#34;%d&#34;, ans);
 </code></pre>
 <p>のように、データ形式にあわせて <code>char</code>（の配列）, <code>int</code> のように、変数の型を指定する必要がありました。</p>
 <p>JS の変数ではスクリプトの実行時に、どんなデータ形式の変数なのかを都度判断され命令が実行されるため、データ型ごとに使い分ける必要がないのです。</p>
-<aside class="warning"><p><strong>NoteThat:（興味がある人向け）<br></strong> JS では、データ型ではなく、変数の性質（どこから利用できる変数か？変数はどのように使えるか？）で、宣言する方法が異なります。<br><code>var arg = ... ;</code> と宣言すると、argはグローバル変数のようにスクリプト内のでどこからでも利用・変更可能な変数になります。<br><code>let arg = ...;</code> と宣言すると、argは {} などで囲まれたブロックごとに分けて宣言でき、変更可能な変数になります。<br><code>const arg = ... ;</code> と宣言すると、argは {} などで囲まれたブロックごとに分けて宣言でき、変更ができない「定数」になります。<br> この授業では、皆さんが使い分けをしなくてすむように、<code>let</code><strong> で統一</strong> します。</p>
+<aside class="special"><p><strong>NoteThat:（興味がある人向け）<br></strong> JS では、データ型ではなく、変数の性質（どこから利用できる変数か？変数はどのように使えるか？）で、宣言する方法が異なります。<br><code>var arg = ... ;</code> と宣言すると、argはグローバル変数のようにスクリプト内のでどこからでも利用・変更可能な変数になります。<br><code>let arg = ...;</code> と宣言すると、argは {} などで囲まれたブロックごとに分けて宣言でき、変更可能な変数になります。<br><code>const arg = ... ;</code> と宣言すると、argは {} などで囲まれたブロックごとに分けて宣言でき、変更ができない「定数」になります。<br> この授業では、皆さんが使い分けをしなくてすむように、<strong><code>let</code></strong><strong> で統一</strong> します。</p>
 </aside>
 
 
@@ -131,7 +134,7 @@ printf(&#34;%d&#34;, ans);
 &lt;p&gt;千歳 光です&lt;/p&gt;
 </code></pre>
 <p>という HyperTextは、 <strong>「H1は見出し、pは段落文章にする」</strong> という見せ方を示しており、</p>
-<p class="image-container"><img alt="3-1 結果表示1" src="img/6dc4e933819827c8.png"></p>
+<p class="image-container"><img alt="3-1 結果表示1" src="img/56fea843ed0d714e.png"></p>
 <p>の様に、タグの種類ごとに、画面に表示される形が変わります。</p>
 <p>また、タグは入れ子構造にすることもできます。</p>
 <pre><code language="language-html" class="language-html">&lt;p&gt;彼は、&lt;strong&gt;その時間は家にいた&lt;/strong&gt;と説明した。&lt;/p&gt;
@@ -145,7 +148,7 @@ printf(&#34;%d&#34;, ans);
 <pre><code language="language-html" class="language-html">&lt;p id=&#34;foo&#34;&gt;こんにちは&lt;/p&gt;
 &lt;p id=&#34;bar&#34;&gt;さようなら&lt;/p&gt;
 </code></pre>
-<p>の <code>id=&#34;foo&#34;</code>  <code>id=&#34;bar&#34;</code> の部分がプロパティです。この例は、それぞれのpタグのマークアップ部分に <code>foo</code>, <code>bar</code> という区別できる名前をつけていることになります。</p>
+<p>の <code>id="foo"</code>  <code>id="bar"</code> の部分がプロパティです。この例は、それぞれのpタグのマークアップ部分に <code>foo</code>, <code>bar</code> という区別できる名前をつけていることになります。</p>
 <h2 is-upgraded>(2) 〈解説〉HyperTextの値やプロパティをJSで書き換える</h2>
 <p>ブラウザの画面に値がどんな形で表示されるかは、HyperTextのタグ（やそのプロパティ）と値によって左右されます。</p>
 <p>つまり、<strong>タグのプロパティ・値などをJSのスクリプトで書き換えること＝ブラウザの画面をプログラムで変化させること</strong> になります。</p>
@@ -167,21 +170,21 @@ document.getElementById(&#34;bar&#34;).innerHTML = &#34;See you.&#34;;
 <p><code>JSTraining.html</code> のプログラムを、以下のように変更してください。</p>
 <ul>
 <li>まず、 Trainging2 で変更した内容をコメントアウトする</li>
-<li><code>id=&#34;gakuseki&#34;</code> の名前がついている p タグの値を、あなたの学籍番号に書き換える（ここでは例として、<code>b1992490</code> があなたの学籍番号だとしています）</li>
+<li><code>id="gakuseki"</code> の名前がついている p タグの値を、あなたの学籍番号に書き換える（ここでは例として、<code>b1992490</code> があなたの学籍番号だとしています）</li>
 </ul>
 <p><strong>手元のファイルを変更してください：</strong></p>
 <p class="image-container"><img alt="コード例08" src="img/c8dacb335b1526b7.png"></p>
 <p>変更内容を保存した後、ブラウザで <code>JSTraining.html</code> を再表示してみてください。</p>
-<p class="image-container"><img alt="3-3 結果表示1" src="img/d3fc8383f7a93d3b.png"></p>
+<p class="image-container"><img alt="3-3 結果表示1" src="img/8cbf07d39b8b53b2.png"></p>
 <p><strong>あなたの学籍番号：?</strong> と表示されていた部分が、 <strong>あなたの学籍番号：b1992490</strong> のように変化していますか？</p>
-<p>これは下図の様に、JSのスクリプトが、HyperTextの中から <code>id=&#34;gakuseki</code> になっているタグを探しだし、 <code>?</code> の所を書き換えるように動いているためです。</p>
+<p>これは下図の様に、JSのスクリプトが、HyperTextの中から <code>id="gakuseki</code> になっているタグを探しだし、 <code>?</code> の所を書き換えるように動いているためです。</p>
 <p class="image-container"><img alt="3-3 結果表示2" src="img/cfb80627e36733c0.png"></p>
 <h2 is-upgraded>(4) 〈実演〉計算結果（加算）、計算結果（減算）を書き換える</h2>
 <p>さらに、<strong>計算結果（加算）：?</strong>、<strong>計算結果（乗算）：?</strong> の <code>?</code> の部分に、それぞれ 5 + 5、5 * 5 の結果が表示されるよう、スクリプトを付け加えてみましょう。</p>
 <p><strong>学籍番号を表示するスクリプトの後に、さらに追記してください：</strong></p>
 <p class="image-container"><img alt="コード例09" src="img/973ff2d7b861f142.png"></p>
 <p>変更内容を保存した後、ブラウザで <code>JSTraining.html</code> を再表示してみてください。</p>
-<p class="image-container"><img alt="3-4 結果表示" src="img/f40ab1a850a5afe6.png"></p>
+<p class="image-container"><img alt="3-4 結果表示" src="img/e09e14bbfb971daa.png"></p>
 <p>学籍番号の下に、加算、乗算の結果が表示されていますか？</p>
 
 
@@ -204,7 +207,7 @@ document.getElementById(&#34;bar&#34;).innerHTML = &#34;See you.&#34;;
 <p><strong>手元のファイルを変更してください：</strong></p>
 <p class="image-container"><img alt="コード例0a" src="img/70b9f0231e5f2a4e.png"></p>
 <p>変更内容を保存した後、ブラウザで <code>JSTraining.html</code> を再表示してみてください。</p>
-<p class="image-container"><img alt="4-1 結果表示" src="img/5a073afe9e981842.png"></p>
+<p class="image-container"><img alt="4-1 結果表示" src="img/26cc2358a3d2d369.png"></p>
 <p>学籍番号と、新しい計算式での足し算、引き算の結果が表示されていますか？</p>
 
 
@@ -217,13 +220,14 @@ document.getElementById(&#34;bar&#34;).innerHTML = &#34;See you.&#34;;
 <p>たとえば、  <code>JSTraining.html</code> の中には、</p>
 <pre><code language="language-html" class="language-html">&lt;button id=&#34;btn&#34; onclick=&#34;push()&#34;&gt;ボタンを押してください&lt;/button&gt;
 </code></pre>
-<p>という部分があります。この部分が、「押してください」と書かれているボタンを表示している箇所になりますが、 <code>onclick=&#34;push()&#34;</code><strong> は、 ボタンが押されたとき（つまり、これがイベント）に、JStのpush関数を実行する、という意味</strong> になります。</p>
+<p>という部分があります。この部分が、「押してください」と書かれているボタンを表示している箇所になりますが、 <strong><code>onclick="push()"</code></strong></p>
+<p><strong> は、 ボタンが押されたとき（つまり、これがイベント）に、JStのpush関数を実行する、という意味</strong> になります。</p>
 <h2 is-upgraded>(2) 〈実演〉 push関数を作成する</h2>
 <p>Training4で作った rewrite関数とは別にpush関数を作り、ボタンが押されたときの動作を作成しましょう。</p>
 <p><strong>rewrite関数の下に、追記してください：</strong></p>
 <p class="image-container"><img alt="コード例0b" src="img/82f3d867fc138801.png"></p>
 <p>変更内容を保存した後、ブラウザで <code>JSTraining.html</code> を再表示してみてください。</p>
-<p class="image-container"><img alt="5-2 結果表示" src="img/d3b15fcf5b7dd603.png"></p>
+<p class="image-container"><img alt="5-2 結果表示" src="img/7506bf7d74900b99.png"></p>
 <p>「押してください」ボタンを押すと、 <strong>ボタン：まだ押されていません</strong> が、 <strong>ボタン：押されました！</strong> に変化しますか？</p>
 
 
@@ -232,10 +236,10 @@ document.getElementById(&#34;bar&#34;).innerHTML = &#34;See you.&#34;;
       <google-codelab-step label="〈挑戦〉" duration="0">
         <p>ここまでのトレーニング内容を参考に、次の様に動く画面になるように、JavaScriptのプログラムを変更してください。</p>
 <ol type="1">
-<li><strong>計算結果（加算）と計算結果（乗算）の </strong><code>?</code><strong> には、最初は </strong><code>?</code><strong> → </strong><code>0</code><strong> が表示される</strong></li>
-<li><strong>「押してください」ボタンを押すと、 これをイベントにして計算結果（加算）の </strong><code>?</code><strong> には </strong><code>7 + 3</code><strong> の結果が、 計算結果（乗算）の </strong><code>?</code><strong> には </strong><code>7 * 3</code><strong> の結果が表示されるようにする</strong></li>
+<li><strong>計算結果（加算）と計算結果（乗算）の </strong><strong><code>?</code></strong><strong> には、最初は </strong><strong><code>?</code></strong><strong> → </strong><strong><code>0</code></strong><strong> が表示される</strong></li>
+<li><strong>「押してください」ボタンを押すと、 これをイベントにして計算結果（加算）の </strong><strong><code>?</code></strong><strong> には </strong><strong><code>7 + 3</code></strong><strong> の結果が、 計算結果（乗算）の </strong><strong><code>?</code></strong><strong> には </strong><strong><code>7 * 3</code></strong><strong> の結果が表示されるようにする</strong></li>
 </ol>
-<p class="image-container"><img alt="挑戦問題:動作例" src="img/545be4161afdef8.png"></p>
+<p class="image-container"><img alt="挑戦問題:動作例" src="img/9595e845ea46e020.png"></p>
 <aside class="warning"><p><strong>Hint:</strong> ボタンを押す前と、ボタンを押した後（つまり、push関数が呼ばれたとき）で、JavaScriptがどのようにHyperTextを書き換えるようなプログラムになればいいでしょうか。</p>
 </aside>
 <p>挑戦の結果、完成した <code>JSTraining.html</code> をポータルのレポートBOXに提出してください。</p>

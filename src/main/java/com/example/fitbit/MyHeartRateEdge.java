@@ -48,7 +48,7 @@ public class MyHeartRateEdge extends TextWebSocketHandler {
     MyHeartRateEdge.send(session, makeMessage());
   }
 
-  @Scheduled(fixedDelayString = "PT15M")
+  @Scheduled(fixedDelayString = "PT1M")
   public void pushMessage() throws IOException, ExecutionException, InterruptedException {
     log.info("push message to " + heldSessions.size() + " clients.");
     var newMessage = makeMessage();
