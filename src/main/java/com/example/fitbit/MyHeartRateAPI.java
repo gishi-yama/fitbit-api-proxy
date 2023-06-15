@@ -25,7 +25,7 @@ public class MyHeartRateAPI {
 
   @GetMapping("auth")
   public String auth() {
-    return fitbitProxy.getAuthnURL();
+    return "redirect:" + fitbitProxy.getAuthnURL();
   }
 
   @GetMapping("save")
