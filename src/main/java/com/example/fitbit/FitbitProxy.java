@@ -17,8 +17,11 @@ import org.springframework.util.ObjectUtils;
 
 import java.io.IOException;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
 @Log4j2
 @Service
@@ -69,7 +72,16 @@ public class FitbitProxy {
     FitBitHeartActivity heartActivity = objectMapper.readValue(responseBody, FitBitHeartActivity.class);
     IntradayHeartRate intradayHeartRate = heartActivity.intraDay();
     log.info(intradayHeartRate.dataset.size());
-    return intradayHeartRate.dataset;
+    LocalTime now = LocalTime.now().truncatedTo(ChronoUnit.SECONDS);
+    LocalTime midnight = LocalTime.MIDNIGHT;
+    long minutesPassed = ChronoUnit.MINUTES.between(midnight, now);
+    List<OnetimeHeartRate> fillTimeHeartRates = LongStream.rangeClosed(0, minutesPassed)
+      .boxed()
+      .map(LocalTime.MIDNIGHT::plusMinutes)
+      .map(t -> intradayHeartRate.dataset.stream()
+        .findFirst().orElse(new OnetimeHeartRate(t, 0)))
+      .toList();
+    return fillTimeHeartRates;
   }
 
   @Cacheable("responseBody")
