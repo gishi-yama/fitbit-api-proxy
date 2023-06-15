@@ -372,6 +372,62 @@ Training4で作った rewrite関数とは別にpush関数を作り、ボタン�
 
 </aside>
 
-挑戦の結果、完成した `JSTraining.html` をポータルのレポートBOXに提出してください。
+## 提出
 
-お疲れ様でした。
+まず、先週の課題で、Githubの課題提出リポジトリ `https://github.com/cist-ise-2023/ppu-xxxxxx` (xxxxxx は学籍番号) からcloneした `ppu-xxxxx` フォルダの中に、完成した `JSTraining.html` をコピーしてください。
+
+次に、`Git Bash (Windows)` or `ターミナル.app (macOS)` で `ppu-xxxxxx` フォルダに移動し、コミットを行います。
+
+### フォルダを移動
+
+```sh
+cd ppu-xxxxxx
+```
+
+うまく移動できない場合は、フォルダのパスを調べて指定してください。
+
+### ファイルがあるかを確認
+
+```sh
+ls
+```
+
+`README.md`　の他に、 **あなたがコピーした** `JSTraining.html` **のファイルの名前が表示** されるはずです。
+
+### commit コマンド
+
+```sh
+git add .
+```
+
+```sh
+git commit -m "JSTraining の課題を提出した"
+```
+
+```sh
+git push
+```
+
+課題が、**あなたの 課題提出場所（リポジトリ）のURL** `htps://github.com/cist-ise-2023/ppu-xxxxxx` に提出されます。
+
+<aside class="negative">
+
+### 注意事項1
+
+**git commit 後に JSTraining.html を変更したい場合は、ファイルを上書きし、最新のものがgithubにアップロードされるように commit / push を再度おこなってください** 。
+
+この時のコミットメッセージは、 `JSTraining の課題を提出した` ではなく、 **どのような内容の上書きをしたのかを説明するように入力** してください。
+
+</aside>
+
+<aside class="negative">
+
+### 注意事項2
+
+課題の達成の確認は github 上に提出されたファイルで行います。 **不完全なファイルのままGithubに提出されていないことを、`https://github.com/cist-ise-2023/ppu-xxxxxx` をブラウザで開いて内容を見るなど、しっかり確認** してください。
+
+</aside>
+
+
+
+
