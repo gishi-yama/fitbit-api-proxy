@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -24,8 +25,8 @@ public class MyHeartRateAPI {
   }
 
   @GetMapping("auth")
-  public String auth() {
-    return "redirect:" + fitbitProxy.getAuthnURL();
+  public void auth(HttpServletResponse response) throws IOException {
+    response.sendRedirect(fitbitProxy.getAuthnURL());
   }
 
   @GetMapping("save")
