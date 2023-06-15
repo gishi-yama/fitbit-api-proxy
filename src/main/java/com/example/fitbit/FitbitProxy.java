@@ -58,7 +58,7 @@ public class FitbitProxy {
     return "認証済";
   }
 
-  public String gsaveCode(String code) throws IOException, ExecutionException, InterruptedException {
+  public String saveCode(String code) throws IOException, ExecutionException, InterruptedException {
     this.accessCode = code;
     this.token = (FitBitOAuth2AccessToken) oAuth20Service.getAccessToken(code);
     return "認証完了";
