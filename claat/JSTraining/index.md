@@ -1,7 +1,7 @@
 author: @gishi_yama
 id: JSTraining
 categories:JS
-status: Draft
+status: Publush
 environments: Web
 feedback link: mailto:ppu-qa@techitose.org
 
@@ -372,7 +372,8 @@ Training4で作った rewrite関数とは別にpush関数を作り、ボタン�
 
 ## 提出
 
-まず、先週の課題で、Githubの課題提出リポジトリ `https://github.com/cist-ise-2023/ppu-xxxxxx` (xxxxxx は学籍番号) からcloneした `ppu-xxxxx` フォルダの中に、完成した `JSTraining.html` をコピーしてください。
+まず、先週の課題で、Githubの課題提出リポジトリ `https://github.com/cist-ise-2023/ppu-xxxxxx` (xxxxxx はあなたのgitアカウント名)
+からcloneした `ppu-xxxxx` フォルダの中に、完成した `JSTraining.html` をコピーしてください。
 
 次に、`Git Bash (Windows)` or `ターミナル.app (macOS)` で `ppu-xxxxxx` フォルダに移動し、コミットを行います。
 
