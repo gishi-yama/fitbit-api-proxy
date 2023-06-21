@@ -9,7 +9,7 @@
   <title>センシングデータの利用実習（第2回）</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
   <style>
     .success {
       color: #1e8e3e;
@@ -250,18 +250,48 @@ c3.generate({
 <h2 is-upgraded>3. 積極的に活動している時間</h2>
 <p>心拍数が90以上が続いている時間は、体を動かしたり、体に負担がかかるような活動をしている時間と推測される。あなたがグラフを表示した日、山川はどの程度積極的に活動しているか。</p>
 <h2 is-upgraded>4. 被験者へのアドバイス</h2>
-<p>上記1-3の情報をもとに、山川が「健康的に過ごしたい」と悩んでいたとしたら、あなたはどのような助言を考えるか。 <strong>あなた自身がAIになったつもりで</strong>、判断が必要なデータがあればWebや書籍で調べた上で、助言を考えなさい。</p>
+<p>上記1-3の情報をもとに、山川が「健康的に過ごしたい」と悩んでいたとしたら、あなたはどのような助言を考えるか。 <strong>あなた自身がAIになったつもりで</strong> 、判断が必要なデータがあればWebや書籍で調べた上で、助言を考えなさい。</p>
 <p>上記の内容について、課題ページに示したGoogle Formから投稿しなさい。</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="提出" duration="0">
+        <p>まず、先週の課題で、Githubの課題提出リポジトリ <code>https://github.com/cist-ise-2023/ppu-xxxxxx</code> (xxxxxx はあなたのgitアカウント名) からcloneした <code>ppu-xxxxx</code> フォルダの中に、完成した <code>HeartRate.html</code> をコピーしてください。</p>
+<p>次に、<code>Git Bash (Windows)</code> or <code>ターミナル.app (macOS)</code> で <code>ppu-xxxxxx</code> フォルダに移動し、コミットを行います。</p>
+<h2 is-upgraded>フォルダを移動</h2>
+<pre><code language="language-sh" class="language-sh">cd ppu-xxxxxx
+</code></pre>
+<p>うまく移動できない場合は、フォルダのパスを調べて指定してください。</p>
+<h2 is-upgraded>ファイルがあるかを確認</h2>
+<pre><code language="language-sh" class="language-sh">ls
+</code></pre>
+<p><code>README.md</code> や <code>JSTraining.html</code> の他に、 <strong>あなたがコピーした </strong><code>HeartRate.html</code> <strong>のファイルの名前が表示</strong> されるはずです。</p>
+<h2 is-upgraded>commit コマンド</h2>
+<pre><code language="language-sh" class="language-sh">git add .
+</code></pre>
+<pre><code language="language-sh" class="language-sh">git commit -m &#34;HeartRate の課題を提出した&#34;
+</code></pre>
+<pre><code language="language-sh" class="language-sh">git push
+</code></pre>
+<p>課題が、<strong>あなたの 課題提出場所（リポジトリ）のURL </strong><code>htps://github.com/cist-ise-2023/ppu-xxxxxx</code> に提出されます。</p>
+<aside class="warning"><h2 is-upgraded>注意事項1</h2>
+<p><strong>git commit 後に HeartRate.html を変更したい場合は、ファイルを上書きし、最新のものがgithubにアップロードされるように commit / push を再度おこなってください</strong> 。</p>
+<p>この時のコミットメッセージは、 <code>HeartRate の課題を提出した</code> ではなく、 <strong>どのような内容の上書きをしたのかを説明するように入力</strong> してください。</p>
+</aside>
+<aside class="warning"><h2 is-upgraded>注意事項2</h2>
+<p>課題の達成の確認は github 上に提出されたファイルで行います。 * <em>不完全なファイルのままGithubに提出されていないことを、</em><em><code>https://github.com/cist-ise-2023/ppu-xxxxxx</code></em><em> をブラウザで開いて内容を見るなど、しっかり確認</em>* してください。</p>
+</aside>
 
 
       </google-codelab-step>
     
   </google-codelab>
 
-  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
   <script src="//support.google.com/inapp/api.js"></script>
 
 </body>
