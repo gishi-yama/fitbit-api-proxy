@@ -3,7 +3,7 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2022-06-09T23:34:21+09:00",
+  "updated": "2024-05-26T11:00:09+09:00",
   "id": "JSTraining",
   "duration": 0,
   "title": "センシングデータの利用実習（第1回）",
@@ -19,6 +19,6 @@
   "tags": [
     "web"
   ],
-  "feedback": "mailto:cist-ppu-qa@googlegroups.com",
+  "feedback": "mailto:ppu-qa@techitose.org",
   "url": "JSTraining"
 }

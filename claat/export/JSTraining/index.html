@@ -9,7 +9,7 @@
   <title>センシングデータの利用実習（第1回）</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
   <style>
     .success {
       color: #1e8e3e;
@@ -25,7 +25,7 @@
                   id="JSTraining"
                   title="センシングデータの利用実習（第1回）"
                   environment="web"
-                  feedback-link="mailto:cist-ppu-qa@googlegroups.com">
+                  feedback-link="mailto:ppu-qa@techitose.org">
     
       <google-codelab-step label="はじめに" duration="0">
         <aside class="warning"><p>〈実演〉と書かれている部分は、皆さんが実際に操作する必要がある部分です。<br> 〈解説〉と書かれている部分は、前提となる知識などについて解説だけしている部分です。<br> 〈挑戦〉と書かれている部分は、そこまでの内容を理解しているか、自分でチャレンジをしてみてください。</p>
@@ -39,7 +39,6 @@
 <p class="image-container"><img alt="動作確認" src="img/2afb01f735985912.png"></p>
 <h3 is-upgraded>(2)  〈実演〉JSTraining.htmlの編集</h3>
 <p><code>JSTraining.html</code> を、 <strong>手元のPCのメモ帳やテキストエディタで</strong> 開いてください。（他に普段利用しているテキスト編集ソフトがあれば、それを使ってもかまいません。 <strong>ただし、スマホアプリのメモ帳やワープロソフトは結果が変わってしまうことが多い</strong> ので、オススメしません）</p>
-<p>&lt;a</p>
 <p>メモ帳やテキストエディタに、以下のような文章が表示されることを確認してください。(色合いは、編集しているソフトウェアや利用環境によって異なります)</p>
 <p class="image-container"><img alt="コード例01" src="img/402415358c36963.png"></p>
 <p>これが、 <strong>ブラウザへの画面表示を指示しているHTML（Hyper Text）</strong> です。</p>
@@ -112,7 +111,7 @@ printf(&#34;%s&#34;, quiz);
 int ans = 16 + 2&#34;;
 printf(&#34;%d&#34;, ans);
 </code></pre>
-<p>のように、データ形式にあわせて <code>char</code>（の配列）, <code>int</code> のように、変数の型を指定する必要がありました。</p>
+<p>のように、データ形式にあわせて <code>char</code>（の配列）, <code>int</code> といった変数の型を指定する必要があります。</p>
 <p>JS の変数ではスクリプトの実行時に、どんなデータ形式の変数なのかを都度判断され命令が実行されるため、データ型ごとに使い分ける必要がないのです。</p>
 <aside class="special"><p><strong>NoteThat:（興味がある人向け）<br></strong> JS では、データ型ではなく、変数の性質（どこから利用できる変数か？変数はどのように使えるか？）で、宣言する方法が異なります。<br><code>var arg = ... ;</code> と宣言すると、argはグローバル変数のようにスクリプト内のでどこからでも利用・変更可能な変数になります。<br><code>let arg = ...;</code> と宣言すると、argは {} などで囲まれたブロックごとに分けて宣言でき、変更可能な変数になります。<br><code>const arg = ... ;</code> と宣言すると、argは {} などで囲まれたブロックごとに分けて宣言でき、変更ができない「定数」になります。<br> この授業では、皆さんが使い分けをしなくてすむように、<strong><code>let</code></strong><strong> で統一</strong> します。</p>
 </aside>
@@ -250,10 +249,10 @@ document.getElementById(&#34;bar&#34;).innerHTML = &#34;See you.&#34;;
     
   </google-codelab>
 
-  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
   <script src="//support.google.com/inapp/api.js"></script>
 
 </body>

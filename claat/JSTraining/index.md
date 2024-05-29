@@ -3,7 +3,7 @@ id: JSTraining
 categories:JS
 status: Draft
 environments: Web
-feedback link: mailto:cist-ppu-qa@googlegroups.com
+feedback link: mailto:ppu-qa@techitose.org
 
 # センシングデータの利用実習（第1回）
 
@@ -36,8 +36,6 @@ feedback link: mailto:cist-ppu-qa@googlegroups.com
 `JSTraining.html`
 を、 **手元のPCのメモ帳やテキストエディタで** 開いてください。（他に普段利用しているテキスト編集ソフトがあれば、それを使ってもかまいません。
 **ただし、スマホアプリのメモ帳やワープロソフトは結果が変わってしまうことが多い** ので、オススメしません）
-
-<a
 
 メモ帳やテキストエディタに、以下のような文章が表示されることを確認してください。(色合いは、編集しているソフトウェアや利用環境によって異なります)
 
@@ -159,7 +157,7 @@ int ans = 16 + 2";
 printf("%d", ans);
 ```
 
-のように、データ形式にあわせて `char`（の配列）, `int` のように、変数の型を指定する必要がありました。
+のように、データ形式にあわせて `char`（の配列）, `int` といった変数の型を指定する必要があります。
 
 JS の変数ではスクリプトの実行時に、どんなデータ形式の変数なのかを都度判断され命令が実行されるため、データ型ごとに使い分ける必要がないのです。
 
