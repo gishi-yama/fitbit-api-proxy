@@ -5,4 +5,8 @@ fitbit:
     callbackURL: # Here's your url
 access:
   logging:
-    path: /tmp/gakuseki.txt
+    path: /tmp/gakuseki.
+ngrok:
+  command: http -region=jp --subdomain=mcom 8080
+  enabled: false
+  auth-token: # Here's your token
