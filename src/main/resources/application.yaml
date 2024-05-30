@@ -7,6 +7,6 @@ access:
   logging:
     path: /tmp/gakuseki.
 ngrok:
-  command: http -region=jp --subdomain=mcom 8080
+  command: "http --region=jp 8080"
   enabled: false
   auth-token: # Here's your token
