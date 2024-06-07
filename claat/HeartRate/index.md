@@ -3,7 +3,7 @@ id: HeartRate
 categories:JS
 status: Draft
 environments: Web
-feedback link: mailto:cist-ppu-qa@googlegroups.com
+feedback link: mailto:ppu-qa@techitose.org
 
 # センシングデータの利用実習（第2回）
 
