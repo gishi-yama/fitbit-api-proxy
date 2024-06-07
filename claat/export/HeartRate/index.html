@@ -9,7 +9,7 @@
   <title>センシングデータの利用実習（第2回）</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
   <style>
     .success {
       color: #1e8e3e;
@@ -28,23 +28,27 @@
                   feedback-link="mailto:cist-ppu-qa@googlegroups.com">
     
       <google-codelab-step label="はじめに" duration="0">
-        <aside class="warning"><p>〈実演〉と書かれている部分は、皆さんが実際に操作する必要がある部分です。<br> 〈解説〉と書かれている部分は、前提となる知識などについて解説だけしている部分です。<br> 〈挑戦〉と書かれている部分は、そこまでの内容を理解しているか、自分でチャレンジをしてみてください。</p>
+        <aside class="warning"><p>〈実演〉と書かれている部分は、皆さんが実際に操作する必要がある部分です。<br> 〈解説〉と書かれている部分は、前提となる知識などについて解説だけしている部分です。</p>
 </aside>
 <aside class="warning"><p>ブラウザはできるだけ Chrome, Firefox, Safari, Edge などの <strong>最新版</strong> を利用してください。Internet Explorer や、前述のブラウザでも古いバージョンのものでは、正常にスクリプトが動作しない場合があります。</p>
 </aside>
+<aside class="warning"><p><strong>生成AIを利用した場合は、レポート課題に記述する必要があるので、生成AIに送信したスクリプトと回答を記録しておくこと</strong>。</p>
+<p><strong>あなたがどのように生成AIを活用しているのかを評価したい</strong> ので、その趣旨を汲み取った上で利用されたい。</p>
+<p>当然、<strong>あえて生成AIを利用しなかった場合に減点を行うものではない</strong> ので、生成AIの利用は各自の判断に委任する。</p>
+</aside>
 <h2 is-upgraded>事前準備</h2>
-<h3 is-upgraded>(1) 〈実演〉 HeatRate.htmlのダウンロード</h3>
+<h3 is-upgraded>〈実演〉 HeatRate.htmlのダウンロード</h3>
 <p>ポータルから <code>HeartRate.html</code> をダウンロードする。</p>
 <p>ダウンロードした <code>HeartRate.html</code> を、手元のPCのブラウザにドラッグアンドドロップして、以下のような画面がブラウザに表示されていることを確認する。</p>
 <p class="image-container"><img alt="動作確認" src="img/5e078c86b8d0e2f6.png"></p>
-<p>このファイルにJSを組み込み、ある被験者が身につけているウェアラブルデバイスから、（ほぼ）リアルタイムな心拍数を取得できるようにする。</p>
+<p>このファイルにJavaScript（JS）を組み込み、ある被験者が身につけているウェアラブルデバイスから、（ほぼ）リアルタイムな心拍数を取得できるようにする。</p>
 <p>実習が成功すると、皆さんは離れた場所にいながら、他者の活動量（心拍数から予想される、活動の活発さや生活のリズム）を手元で把握できるようになるということである。</p>
 <p>完成予定図は、以下のようになる。</p>
 <p class="image-container"><img alt="完成予定図" src="img/782d0f89892f1862.png"></p>
 <p>今回の実習では、<strong>IoTシステムとしてもっとも基本的な「モノ（今回は、教員自身）が生体・環境の情報（今回は、心拍数）を、インターネットを通じて自動的に送信する」部分を体験</strong> している。</p>
 <p>もしこれらの仕組みを拡充し、<strong>被験者を増やす・長期間運用することでデータ件数を増やすなどの方法でビッグデータ化</strong> したり、その上で、<strong>蓄積されたデータを高度に組み合わせ応用する・AI技術などを用いるなどの方法でデータ活用する</strong> ことができれば、対象となる場所を利用する人間に有用な情報サービスや、場所自体をよりよくする情報サービスを提供できる可能性がある。</p>
 <p>こうした雰囲気や可能性を、実習を通じて体験する。</p>
-<aside class="warning"><p>この実習では、0時から24時までの心拍数が送られてくる。したがって、日付が変わった直後はデータが取得できていない状態から始まる。<strong>実習や最後の動作確認は、日中のコアタイムや22時ごろまで</strong> に行うとよい。<br> また、被験者が何らかの理由（充電など）でウェラブルデバイスを外している場合や、通信状況が悪い場合（地下鉄での移動中など）はデータが途中で途切れたり、歯抜けになることもある。極力起こらないようにしたいが、長時間の発生が予想される場合は、連絡掲示で報告する。</p>
+<aside class="warning"><p>この実習では、0時から24時までの心拍数が送られてくる。したがって、日付が変わった直後はデータが取得できていない状態から始まる。<strong>実習や最後の動作確認は、日中のコアタイムや22時ごろまで</strong> に行うとよい。<br> また、被験者が何らかの理由（充電など）でウェラブルデバイスを外している場合や、通信状況が悪い場合（航空機での移動中など）はデータが途中で途切れたり、歯抜けになることもある。極力起こらないようにしたいが、長時間の発生が予想される場合は、授業ページで報告する。</p>
 </aside>
 
 
@@ -52,26 +56,26 @@
     
       <google-codelab-step label="HTMLファイルの内容確認" duration="0">
         <h2 is-upgraded>〈解説〉HeartRate.htmlの内容</h2>
-<p><code>HeartRate.html</code> を、 <strong>手元のPCのメモ帳などで</strong> 開く。（他に普段利用しているテキスト編集ソフトがあれば、それを使ってもかまいません。 <strong>ただし、スマホアプリのメモ帳やワープロソフトは結果が変わってしまうことが多いので、オススメしません</strong> ）</p>
-<p>メモ帳やテキストエディタに、以下のような文章が表示されることを確認する。</p>
+<p><code>HeartRate.html</code> を、 <strong>テキストエディタで</strong> 開く。（前回のJSの課題と同じもの。 スマホアプリのメモ帳やワープロソフトは、見た目と実際のデータの間で差異が生じる場合があるので、オススメしない ）</p>
+<p>テキストエディタに、以下のような文章が表示されることを確認する。</p>
 <p class="image-container"><img alt="コード例01" src="img/b3b969a53ea79db1.png"></p>
 <p>ここで、<code>&lt;link href=... &lt;/link&gt;</code> の部分や、 <code>&lt;script src="... &lt;/script&gt;</code> の部分は、あなたのプログラムに「グラフを描画できる機能」を提供してくれるライブラリを読み込んでいる。（ライブラリの役割は、授業の動画で解説している）</p>
-<p>画面を表示するHyperTextには、それぞれの部分に <code>id</code> が名前としてつけられている。JSでは、名前をつけられた部分がどのように画面に表示されるか、スクリプトで書き換えられることは、前回の実習で練習をした通りである。</p>
+<p>画面を表示するHyperTextには、それぞれの部分に <code>id</code> が名前としてつけられている。名前をつけられた部分がどのように画面に表示されるかをプログラム（JSのスクリプト）で書き換えられることは、前回の実習で練習をした通りである。</p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="クラウド上のエンドポイントの接続準備" duration="0">
-        <p>被験者の心拍数は、クラウドシステムを通じてリアルタイムなデータとして絶えず提供される。このデータを取得するために、 <strong>WebSocket</strong> を用いる。（WebSocketが何かを忘れた人は第6回などの映像教材を確認してください）</p>
-<p>WebSocket では、Web-APIとなる「エンドポイント」からデータが送られてくるため、エンドポイントに接続するスクリプトを作る。</p>
+        <p><strong>被験者の心拍数は、クラウドシステムを通じてリアルタイムなデータとして絶えず提供</strong> される。このデータを取得するために、 <strong>WebSocket</strong> を用いる。（WebSocketについては、過去の授業で取り上げているので、過去の資料を参考にすること）</p>
+<p>WebSocket では、Web-APIとなる <strong>「エンドポイント」からデータが送られてくる</strong> ため、HyperText上でエンドポイントに接続するためのスクリプトを作る。</p>
 <h2 is-upgraded>エンドポイントに接続する準備を行う</h2>
 <p>今回も、HyperTextの中の</p>
 <p class="image-container"><img alt="コード例02" src="img/c10cae6f0247827d.png"></p>
 <p>の部分にスクリプトを記述していく。</p>
 <h3 is-upgraded>〈実演〉手元のファイルを変更する</h3>
 <p class="image-container"><img alt="コード例03" src="img/20fcc307e9ce328b.png"></p>
-<p>のコメントアウトの指示の通り、 <code>xxxxxxxx</code> の部分を、あなたの学籍番号（最初のアルファベットは英数小文字にすること 例：b1992490）へと書き換える。ここがあなたの学籍番号になっていない場合、後半の手順でうまくいかないので注意すること。</p>
-<p>ここで <code>ep</code> 変数に宣言されている <code>wss://mcom...</code> は、二酸化炭素濃度を提供するクラウドのURLです（URLが何かを忘れた人は第6回, 第7回などの映像教材を確認してください。<code>wss://</code> スキーマは、WebSocket通信を行うことを示しています）</p>
+<p>のコメントアウトの指示の通り、 <code>xxxxxxxx</code> の部分を、あなたの学籍番号（最初のアルファベットは英数小文字にすること 例：b1992490）へと書き換える。 <strong>ここがあなたの学籍番号になっていない場合、後半の手順でうまくいかない</strong> ので注意すること。</p>
+<p>ここで <code>ep</code> 変数に宣言されている <code>wss://mcom...</code> は、二酸化炭素濃度を提供するクラウドのURLである（URLについては、過去の授業で取り上げているので、過去の資料を参考にすること）。 このURLの中で、 <code>wss://</code> スキーマは、WebSocket通信のルールを用いてクラウド側のエンドポイントとやりとりを行うことを指定している。</p>
 
 
       </google-codelab-step>
@@ -90,7 +94,7 @@
 <p class="image-container"><img alt="コード例06" src="img/ccdb8642cfbe62c6.png"></p>
 <p>の部分は、HyperTextの中の <code>"btn"</code> つまり、ボタン部分のタグを非表示にするスクリプトである。</p>
 <h2 is-upgraded>実行する</h2>
-<p>ブラウザで <code>HeartRate.html</code> を再表示する（ドラッグアンドドロップでも、ブラウザの更新ボタンでも良いです）。</p>
+<p>ブラウザで <code>HeartRate.html</code> を再表示する（ドラッグアンドドロップでも、ブラウザの更新ボタンでもよい）。</p>
 <p><strong>表示された画面で「送信」ボタンを押し、警告ダイアログが表示され、送信ボタン自体が消えれば、WebSocketエンドポイントに接続が成功</strong> している（クラウドの利用状況によっては時間がかかる場合もある。変化がない場合は5~ 7秒程度待つ）。</p>
 <p class="image-container"><img alt="成功ダイアログ" src="img/27ff433bdea8433b.png"></p>
 <p><strong>時間が経ってもダイアログが表示されなかったり、送信ボタンが消えない場合は接続に失敗している</strong> ので、スクリプトの記載のミスなどがないか確認する。</p>
@@ -129,7 +133,7 @@
 </code></pre>
 <p>のような、<strong>0時からの記録時間と心拍数の値の配列状のデータ</strong> として取得できる。<strong>こうしたデータ形式がJSON形式</strong> である。</p>
 <h3 is-upgraded>実行する</h3>
-<p>ブラウザで <code>HeartRate.html</code> を再表示する（ドラッグアンドドロップでも、ブラウザの更新ボタンでも良いです）。</p>
+<p>ブラウザで <code>HeartRate.html</code> を再表示する（ドラッグアンドドロップでも、ブラウザの更新ボタンでも良い）。</p>
 <p>表示された画面で「送信」ボタンを押すと、「WebSocketで接続しました」のダイアログのあとに、<strong>新たに「データ件数: xxxx」（xxxxは任意の数字）が記載されたダイアログも表示される</strong>。</p>
 <p class="image-container"><img alt="件数ダイアログ" src="img/b792250f8a683d4.png"></p>
 <p>この数字（たとえば画像では <code>1250</code>）は、Endpointから取得できた心拍数のデータ件数（配列の長さ）である。<strong>決まった数字ではなく、1日の後半になればなるほど大きな数が表示される</strong>。</p>
@@ -138,7 +142,8 @@
 <p>2箇所の <code>alert</code> の部分を <code>console.log</code> に書き換えると、接続成功メッセージや、データ件数は表示されなくなり、ブラウザの中で処理される。</p>
 <p class="image-container"><img alt="コード例08" src="img/884e71e4b1220f6b.png"></p>
 <p class="image-container"><img alt="コード例09" src="img/219e5e25b9ca9bb9.png"></p>
-<p>Negative : <code>console.log</code> に書かれたメッセージは、ブラウザの開発モードなどで確認できようになる。興味がある学生は調べてみるとよい。</p>
+<aside class="warning"><p><code>console.log</code> に書かれたメッセージは、ブラウザの開発モードなどで確認できようになる。興味がある学生は調べてみるとよい。</p>
+</aside>
 
 
       </google-codelab-step>
@@ -157,10 +162,11 @@
 <p>前の段階で <strong>// この先は、次の段階で記述する</strong> と記載した部分に、以下のスクリプトを記述する。</p>
 <p class="image-container"><img alt="コード例0b" src="img/b9163a9a015e99b9.png"></p>
 <h3 is-upgraded>〈解説〉</h3>
-<p class="image-container"><img alt="コード例0c" src="img/22c6067ac175535e.png"></p>
+<pre><code language="language-js" class="language-js">let lastOne = ...
+</code></pre>
 <p>の部分は、JSONデータの一番最後のデータを取り出すスクリプトである。</p>
-<pre><code language="language-js" class="language-js">let refreshTag = document.getElementById(&#34;refreshAt&#34;);
-refreshTag.innerHTML = lastOne.time;
+<pre><code language="language-js" class="language-js">let refreshTag = ...
+refreshTag.innerHTML = ...
 </code></pre>
 <p>の部分は、HyperTextの <code>?</code> を指定する <code>refreshAt</code> がついたタグを指定して上で、JSONデータの一番最後のデータの <code>time</code> の情報で上書きするスクリプトである。</p>
 <h3 is-upgraded>実行する</h3>
@@ -235,33 +241,61 @@ c3.generate({
 <p>表示された画面で「送信」ボタンを押すと、これまでの情報に加え、折れ線グラフで1日の心拍数が可視化される。</p>
 <p class="image-container"><img alt="反映箇所" src="img/782d0f89892f1862.png"></p>
 <h3 is-upgraded>スクリプトの最終形</h3>
-<p>最終的な課題のスクリプト全文を載せておく。うまく動かない場合は参考にしてよい。</p>
+<p>最終的な課題のスクリプト全文を[載せておく。うまく動かない場合は参考にしてよい。</p>
 <p class="image-container"><img alt="スクリプトの最終形" src="img/2d41ed1e1625a418.png"></p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="挑戦（レポート課題）" duration="0">
-        <p>あなたが表示できるようにしたグラフを見て、ある日の山川の行動を推測しましょう。</p>
-<h2 is-upgraded>1. 睡眠時間</h2>
+      <google-codelab-step label="提出物(採点対象)" duration="0">
+        <p>提出物は二つである。</p>
+<ul>
+<li>完成したプログラムは、授業ページのレポートBOXから提出しなさい。</li>
+<li>プログラムを実行した上で、次ページの指示に沿ったレポート課題を作成し、こちらも授業ページのレポートBOXから提出しなさい。</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="レポート課題の指示" duration="0">
+        <p>あなたが表示できるようにしたグラフを見て、ある日の被験者の行動を読み取り、検討した結果をレポートとしてまとめなさい。</p>
+<p>レポートは項目ごとに章だてをして記述し、PDFファイルとして提出すること。</p>
+<h2 is-upgraded>1. あなたが被験者の心拍数を確認した日時</h2>
+<p>あなたがグラフを表示した日時を記入しなさい。</p>
+<h2 is-upgraded>2. 睡眠時間</h2>
 <p>心拍数56以下が続いている時間は、主に睡眠をしている時間と推測される。あなたがグラフを表示した日、山川はどの程度睡眠しているか。</p>
-<h2 is-upgraded>2. 平静にしている時間</h2>
+<h2 is-upgraded>3. 平静にしている時間</h2>
 <p>心拍数56〜90の間が続いている時間は、椅子に座るなど、平静にしている時間と推測される。あなたがグラフを表示した日、山川はどの程度平静にしているか。</p>
-<h2 is-upgraded>3. 積極的に活動している時間</h2>
+<h2 is-upgraded>4. 積極的に活動している時間</h2>
 <p>心拍数が90以上が続いている時間は、体を動かしたり、体に負担がかかるような活動をしている時間と推測される。あなたがグラフを表示した日、山川はどの程度積極的に活動しているか。</p>
-<h2 is-upgraded>4. 被験者へのアドバイス</h2>
-<p>上記1-3の情報をもとに、山川が「健康的に過ごしたい」と悩んでいたとしたら、あなたはどのような助言を考えるか。 <strong>あなた自身がAIになったつもりで</strong>、判断が必要なデータがあればWebや書籍で調べた上で、助言を考えなさい。</p>
-<p>上記の内容について、課題ページに示したGoogle Formから投稿しなさい。</p>
+<h2 is-upgraded>5. 被験者へのアドバイス</h2>
+<p>上記1-3の情報をもとに、山川が「健康的に過ごしたい」と悩んでいたとしたら、あなたはどのような助言を考えるか。</p>
+<p>判断が必要なデータがあればWebや書籍で調べる・生成AIの回答を参考にするなどの上で、助言を考えなさい。</p>
+<h2 is-upgraded>6. 参考文献</h2>
+<p>調べたWebサイトや書籍があれば、必ず参考文献として記載すること。</p>
+<p>使用しなかった場合は、レポートにこの項目を設けなくて良い。</p>
+<p>参考文献の書き方は <a href="https://warp.ndl.go.jp/info:ndljp/pid/12003258/jipsti.jst.go.jp/sist/pdf/SIST_booklet2011.pdf" target="_blank">科学技術振興機構による 参考文献の書き方</a> の例に従うこと。</p>
+<p>参考文献の記述がなく、他者の著作物を無断で引用したと判断できる箇所が見受けられた際は、減点を行う場合がある。</p>
+<p>（当然、他者のレポートの複製と判断できる箇所が見受けられた場合も、減点を行う）</p>
+<h2 is-upgraded>7. 生成AIの利用</h2>
+<p>生成AIを利用した場合は、（レポート部分に限らず、プログラム部分でも）使用した箇所と、その際のスクリプトを報告すること。</p>
+<p>使用しなかった場合は、レポートにこの項目を設けなくて良い。</p>
+<p>スクリプトの報告なく、生成AIの回答そのままの引用と判断できる箇所が見受けられた際は、減点を行う場合がある。</p>
+<aside class="warning"><p>前述の通り、<strong>出題者は生成AIの性能を評価したいのではない</strong>。</p>
+<p><strong>生成AIを利用した場合は、あなたがどのように生成AIを活用しているのかを評価したい</strong> ので、その趣旨を汲み取った上で利用されたい。</p>
+<p>当然、<strong>あえて生成AIを利用しなかった場合に減点を行うものではない</strong> ので、生成AIの利用は各自の判断に委任する。</p>
+</aside>
+<p>以上</p>
 
 
       </google-codelab-step>
     
   </google-codelab>
 
-  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
   <script src="//support.google.com/inapp/api.js"></script>
 
 </body>
