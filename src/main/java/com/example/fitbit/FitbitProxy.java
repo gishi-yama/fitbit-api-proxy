@@ -17,8 +17,11 @@ import org.springframework.util.ObjectUtils;
 
 import java.io.IOException;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.LongStream;
 
 @Log4j2
 @Service
@@ -41,7 +44,7 @@ public class FitbitProxy {
 
   private String accessCode;
 
-  private String responseBody;
+  private List<OnetimeHeartRate> fullTimeHeartRates;
 
   @Autowired
   public FitbitProxy(OAuth20Service oAuth20Service, ObjectMapper objectMapper) {
@@ -65,27 +68,55 @@ public class FitbitProxy {
   }
 
   public List<OnetimeHeartRate> getHeartRate() throws IOException, ExecutionException, InterruptedException {
-    getCachedResponseBody();
-    FitBitHeartActivity heartActivity = objectMapper.readValue(responseBody, FitBitHeartActivity.class);
-    IntradayHeartRate intradayHeartRate = heartActivity.intraDay();
-    log.info(intradayHeartRate.dataset.size());
-    return intradayHeartRate.dataset;
+    return getfullHeartRate();
   }
 
-  @Cacheable("responseBody")
-  public String getCachedResponseBody() throws IOException, ExecutionException, InterruptedException {
-    if (ObjectUtils.isEmpty(responseBody)) {
-      resetHeartRate();
+  @Cacheable("heatRate")
+  public List<OnetimeHeartRate> getfullHeartRate() throws IOException, ExecutionException, InterruptedException {
+    if (ObjectUtils.isEmpty(fullTimeHeartRates)) {
+      makeFulltimeHeartRate();
     }
-    return responseBody;
+    return fullTimeHeartRates;
   }
+
 
   @Scheduled(fixedDelayString = "PT5M")
-  @CachePut("responseBody")
-  public void resetHeartRate() throws IOException, ExecutionException, InterruptedException {
-    if (ObjectUtils.isEmpty(token)) {
-      return;
+  @CachePut("heatRate")
+  public void makeFulltimeHeartRate() throws IOException, ExecutionException, InterruptedException {
+    String responseBody = getResposeBody();
+    FitBitHeartActivity heartActivity = objectMapper.readValue(responseBody, FitBitHeartActivity.class);
+    IntradayHeartRate intradayHeartRate = heartActivity.intraDay();
+    long size = intradayHeartRate.dataset.size();
+    log.info(size);
+    LocalTime max = LocalTime.MIDNIGHT;
+    if(size > 0)  {
+      max = intradayHeartRate.dataset.stream()
+        .skip(size - 1)
+        .findFirst()
+        .orElse(new OnetimeHeartRate(LocalTime.MIDNIGHT, 0))
+        .time;
     }
+    LocalTime midnight = LocalTime.MIDNIGHT;
+    long minutesPassed = ChronoUnit.MINUTES.between(midnight, max);
+
+    fullTimeHeartRates = LongStream.rangeClosed(0, minutesPassed)
+      .boxed()
+      .map(LocalTime.MIDNIGHT::plusMinutes)
+      .map(t ->
+        intradayHeartRate.dataset.stream()
+          .filter(r -> Objects.equals(r.time, t))
+          .findFirst().orElse(new OnetimeHeartRate(t, 0))
+      )
+      .toList();
+  }
+
+  //  @Scheduled(fixedDelayString = "PT5M")
+//  @CachePut("responseBody")
+  public String getResposeBody() throws IOException, ExecutionException, InterruptedException {
+    if (ObjectUtils.isEmpty(token)) {
+      return "";
+    }
+    log.info("call api");
     final OAuthRequest request = new OAuthRequest(Verb.GET,
       String.format("https://api.fitbit.com/1/user/%s/activities/heart/date/today/1d/1min.json", token.getUserId()));
     request.addHeader("x-li-format", "json");
@@ -93,7 +124,7 @@ public class FitbitProxy {
 
     try (Response response = oAuth20Service.execute(request)) {
       log.info(response.getCode());
-      this.responseBody = response.getBody();
+      return response.getBody();
     }
   }
 
