@@ -372,6 +372,13 @@ Training4で作った rewrite関数とは別にpush関数を作り、ボタン�
 
 ## 提出
 
+提出物は1つである。
+
+* 完成したプログラムを、授業ページのレポートBOXから提出しなさい。
+
+レポートボックスは、それぞれ課題を指示した回の授業枠にあるので、間違えないように注意すること。
+
+<!-- Githubへの提出方法 
 まず、先週の課題で、Githubの課題提出リポジトリ `https://github.com/cist-ise-2023/ppu-xxxxxx` (xxxxxx はあなたのgitアカウント名)
 からcloneした `ppu-xxxxx` フォルダの中に、完成した `JSTraining.html` をコピーしてください。
 
@@ -426,7 +433,6 @@ git push
 課題の達成の確認は github 上に提出されたファイルで行います。 **不完全なファイルのままGithubに提出されていないことを、`https://github.com/cist-ise-2023/ppu-xxxxxx` をブラウザで開いて内容を見るなど、しっかり確認** してください。
 
 </aside>
-
-
+--> 
 
 
