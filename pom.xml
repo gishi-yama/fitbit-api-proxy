@@ -14,7 +14,7 @@
   <name>fitbit-api-proxy</name>
   <description>Demo project for Spring Boot</description>
   <properties>
-    <java.version>21</java.version>
+    <java.version>25</java.version>
   </properties>
   <dependencies>
     <dependency>
@@ -33,7 +33,7 @@
     <dependency>
       <groupId>io.github.kilmajster</groupId>
       <artifactId>ngrok-spring-boot-starter</artifactId>
-      <version>0.9.2</version>
+      <version>0.10.0</version>
     </dependency>
 
 
@@ -50,6 +50,13 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <repositories>
+    <repository>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url>
+    </repository>
+  </repositories>
 
   <build>
     <plugins>
