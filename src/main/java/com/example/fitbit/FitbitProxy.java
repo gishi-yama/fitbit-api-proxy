@@ -7,8 +7,7 @@ import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth20Service;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -24,11 +23,11 @@ import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.LongStream;
 
+@Slf4j
 @Service
 public class FitbitProxy {
 
-  private static final Logger log = LoggerFactory.getLogger(FitbitProxy.class);
-
+//  private static final Logger log = LoggerFactory.getLogger(FitbitProxy.class);
 
   record FitBitHeartActivity(@JsonProperty("activities-heart-intraday") IntradayHeartRate intraDay) {
   }
@@ -92,7 +91,7 @@ public class FitbitProxy {
     long size = intradayHeartRate.dataset.size();
     log.info("heart rate data size: " + size);
     LocalTime max = LocalTime.MIDNIGHT;
-    if(size > 0)  {
+    if (size > 0) {
       max = intradayHeartRate.dataset.stream()
         .skip(size - 1)
         .findFirst()
