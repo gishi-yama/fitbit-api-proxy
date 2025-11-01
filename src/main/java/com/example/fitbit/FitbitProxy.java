@@ -23,6 +23,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.RestClient;
 
+/**
+ * Fitbit API から心拍データを取得し、1分間キャッシュしたものを提供するサービス。
+ * 認証済みユーザーごとにアクセストークンを解決し、WebSocket配信側から共通利用される。
+ */
 @Slf4j
 @Service
 public class FitbitProxy {
@@ -40,6 +44,9 @@ public class FitbitProxy {
                                  @JsonProperty("value") int value) {
   }
 
+  /**
+   * 直近の取得結果と取得時刻を覚えておくための簡易キャッシュ。
+   */
   private record CacheEntry(List<OnetimeHeartRate> data, Instant fetchedAt) {
 
     boolean isFresh(Duration ttl) {
@@ -49,6 +56,9 @@ public class FitbitProxy {
 
   private final OAuth2AuthorizedClientManager authorizedClientManager;
   private final RestClient restClient;
+  /**
+   * キー: Fitbitユーザー(encodedId)。値: 直近期の心拍データ。TTL判定はCacheEntry側で行う。
+   */
   private final Map<String, CacheEntry> heartRateCache = new ConcurrentHashMap<>();
 
   public FitbitProxy(OAuth2AuthorizedClientManager authorizedClientManager, RestClient fitbitRestClient) {
@@ -64,11 +74,13 @@ public class FitbitProxy {
       throw new IllegalStateException("Fitbitにログインしてから再度アクセスしてください。");
     }
 
+    // 1. 直近キャッシュが生きていればそのまま返す。
     CacheEntry cached = heartRateCache.get(authentication.getName());
     if (cached != null && cached.isFresh(CACHE_TTL)) {
       return cached.data();
     }
 
+    // 2. 有効なアクセストークンを確保し Fitbit API をコール。
     OAuth2AuthorizedClient authorizedClient = authorize(authentication);
     FitBitHeartActivity activity = restClient.get()
         .uri("/1/user/-/activities/heart/date/today/1d/1min.json")
@@ -76,12 +88,16 @@ public class FitbitProxy {
         .retrieve()
         .body(FitBitHeartActivity.class);
 
+    // 3. 欠損を埋めた形へ整形しキャッシュへ保存。
     List<OnetimeHeartRate> normalized = normalize(activity);
     heartRateCache.put(authentication.getName(), new CacheEntry(normalized, Instant.now()));
     log.debug("heart rate data size: {}", normalized.size());
     return normalized;
   }
 
+  /**
+   * OAuth2AuthorizedClientManager を使ってアクセストークン/リフレッシュトークンを刷新する。
+   */
   private OAuth2AuthorizedClient authorize(Authentication authentication) {
     OAuth2AuthorizeRequest request = OAuth2AuthorizeRequest.withClientRegistrationId(CLIENT_REGISTRATION_ID)
         .principal(authentication)
@@ -96,6 +112,9 @@ public class FitbitProxy {
     return client;
   }
 
+  /**
+   * Fitbitの生データは記録のない時間帯が抜け落ちているため、0時から最後の計測時刻まで1分刻みで埋める。
+   */
   private List<OnetimeHeartRate> normalize(FitBitHeartActivity activity) {
     if (activity == null || activity.intraDay() == null
         || CollectionUtils.isEmpty(activity.intraDay().dataset())) {
