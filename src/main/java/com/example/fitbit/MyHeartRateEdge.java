@@ -1,7 +1,8 @@
 package com.example.fitbit;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.extern.log4j.Log4j2;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -19,7 +20,6 @@ import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Pattern;
 
-@Log4j2
 @Component
 public class MyHeartRateEdge extends TextWebSocketHandler {
 
@@ -27,6 +27,9 @@ public class MyHeartRateEdge extends TextWebSocketHandler {
   private final ObjectMapper mapper;
   private final PlainAccessLogger accessLogger;
   private final List<WebSocketSession> heldSessions;
+
+  private static final Logger log = LoggerFactory.getLogger(MyHeartRateEdge.class);
+
 
   private static final Pattern GAKUSEKI_QUERY_PATTERN = Pattern.compile("^gakuseki=([bdmp][0-9]{7})");
 
