@@ -38,6 +38,3 @@ ngrok:
   command: "http --region=jp 8080"
   enabled: false
   auth-token:
-
-server:
-  forward-headers-strategy: framework

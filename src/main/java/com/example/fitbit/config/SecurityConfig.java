@@ -4,8 +4,6 @@ import com.example.fitbit.security.DynamicRedirectAuthorizationRequestResolver;
 import com.example.fitbit.security.FitbitOAuth2UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -13,7 +11,6 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestResolver;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter;
-import org.springframework.web.filter.ForwardedHeaderFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -66,12 +63,4 @@ public class SecurityConfig {
     return new DynamicRedirectAuthorizationRequestResolver(clientRegistrationRepository);
   }
 
-  /**
-   * ngrokなどの経路でHTTPヘッダーが書き換わる場合にもリダイレクトURLを正しく再構築するためのフィルター。
-   */
-  @Bean
-  @Order(Ordered.HIGHEST_PRECEDENCE)
-  public ForwardedHeaderFilter forwardedHeaderFilter() {
-    return new ForwardedHeaderFilter();
-  }
 }

@@ -3,7 +3,6 @@ package com.example.fitbit.security;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Optional;
 import java.util.UUID;
-import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.web.DefaultOAuth2AuthorizationRequestResolver;
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestResolver;
@@ -78,11 +77,37 @@ public class DynamicRedirectAuthorizationRequestResolver implements
   }
 
   private String buildRedirectUri(HttpServletRequest request, String registrationId) {
-    // ServletServerHttpRequest経由でscheme/host/portを生成するとForwardedヘッダーの適用結果を確実に拾える。
-    UriComponentsBuilder builder = UriComponentsBuilder
-        .fromHttpRequest(new ServletServerHttpRequest(request))
-        .replacePath(null)
-        .replaceQuery(null);
+    // X-Forwarded-* ヘッダーを直接読む（ForwardedHeaderFilter が Spring Boot 4.0 で正しく機能しないため）。
+    String xForwardedProto = request.getHeader("X-Forwarded-Proto");
+    boolean forwarded = StringUtils.hasText(xForwardedProto);
+    String scheme = forwarded ? xForwardedProto.split(",")[0].trim() : request.getScheme();
+
+    String xForwardedHost = request.getHeader("X-Forwarded-Host");
+    String host = StringUtils.hasText(xForwardedHost)
+        ? xForwardedHost.split(",")[0].trim()
+        : request.getServerName();
+
+    // X-Forwarded-Port を優先。なければ、プロキシ経由なら scheme の標準ポート、そうでなければ実ポート。
+    String xForwardedPort = request.getHeader("X-Forwarded-Port");
+    int port;
+    if (StringUtils.hasText(xForwardedPort)) {
+      port = Integer.parseInt(xForwardedPort.split(",")[0].trim());
+    } else if (forwarded) {
+      port = "https".equals(scheme) ? 443 : 80;
+    } else {
+      port = request.getServerPort();
+    }
+
+    boolean defaultPort = ("http".equals(scheme) && port == 80)
+        || ("https".equals(scheme) && port == 443);
+
+    UriComponentsBuilder builder = UriComponentsBuilder.newInstance()
+        .scheme(scheme)
+        .host(host);
+
+    if (!defaultPort) {
+      builder.port(port);
+    }
 
     String contextPath = request.getContextPath();
     if (StringUtils.hasText(contextPath)) {

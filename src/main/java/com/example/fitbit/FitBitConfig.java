@@ -18,8 +18,8 @@ public class FitBitConfig {
   private String baseUrl;
 
   @Bean
-  public RestClient fitbitRestClient(RestClient.Builder builder) {
-    return builder
+  public RestClient fitbitRestClient() {
+    return RestClient.builder()
         .baseUrl(baseUrl)
         .build();
   }
