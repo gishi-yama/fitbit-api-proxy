@@ -32,7 +32,7 @@ fitbit:
 
 access:
   logging:
-    path: ${ACCESS_LOG_PATH:/tmp/gakuseki.}
+    path: ${ACCESS_LOG_PATH:/tmp/gakuseki.txt}
 
 ngrok:
   command: "http --region=jp 8080"
