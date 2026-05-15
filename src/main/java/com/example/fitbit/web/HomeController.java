@@ -1,6 +1,5 @@
 package com.example.fitbit.web;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -23,10 +22,7 @@ public class HomeController {
   @GetMapping("/auth")
   @ResponseBody
   public Map<String, Object> me(@AuthenticationPrincipal OAuth2User oAuth2User) {
-    Map<String, Object> response = new LinkedHashMap<>();
-    response.put("principalName", oAuth2User.getName());
-    response.put("attributes", oAuth2User.getAttributes());
-    return response;
+    return Map.of("principalName", oAuth2User.getName());
   }
 }
 

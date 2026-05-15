@@ -124,7 +124,10 @@ public class FitbitProxy {
     Map<LocalTime, Integer> byTime = dataset.stream()
         .collect(Collectors.toMap(OnetimeHeartRate::time, OnetimeHeartRate::value, (left, right) -> left, java.util.LinkedHashMap::new));
 
-    LocalTime lastTime = dataset.get(dataset.size() - 1).time();
+    LocalTime lastTime = dataset.stream()
+        .map(OnetimeHeartRate::time)
+        .max(LocalTime::compareTo)
+        .orElseThrow();
     long minutesPassed = ChronoUnit.MINUTES.between(LocalTime.MIDNIGHT, lastTime);
 
     List<OnetimeHeartRate> expanded = new ArrayList<>();

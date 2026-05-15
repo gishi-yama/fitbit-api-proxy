@@ -10,15 +10,8 @@ spring:
             authorization-grant-type: authorization_code
             redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
             scope:
-              - activity
               - heartrate
-              - location
-              - nutrition
               - profile
-              - settings
-              - sleep
-              - social
-              - weight
         provider:
           fitbit:
             authorization-uri: https://www.fitbit.com/oauth2/authorize

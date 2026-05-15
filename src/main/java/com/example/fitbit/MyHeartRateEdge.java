@@ -13,10 +13,10 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.regex.Pattern;
 import org.springframework.security.core.Authentication;
 
@@ -42,12 +42,12 @@ public class MyHeartRateEdge extends TextWebSocketHandler {
     this.fitbitProxy = fitbitProxy;
     this.mapper = mapper;
     this.accessLogger = accessLogger;
-    this.heldSessions = new ArrayList<>();
+    this.heldSessions = new CopyOnWriteArrayList<>();
   }
 
   @Override
   public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-    if (newerSession(session)) {
+    if (isNewSession(session)) {
       String gakuseki = splitGakusekiFromQueryOf(session);
       accessLogger.logOnEdge(gakuseki);
       heldSessions.add(session);
@@ -57,16 +57,15 @@ public class MyHeartRateEdge extends TextWebSocketHandler {
 
   @Scheduled(fixedDelayString = "PT1M")
   public void pushMessage() {
-    log.info("push message to " + heldSessions.size() + " clients.");
-    heldSessions.stream()
-      .filter(WebSocketSession::isOpen)
-      .forEach(held -> {
-        try {
-          MyHeartRateEdge.send(held, makeMessage(held));
-        } catch (Exception ex) {
-          log.warn("心拍データの送信に失敗しました。", ex);
-        }
-      });
+    heldSessions.removeIf(s -> !s.isOpen());
+    log.info("push message to {} clients.", heldSessions.size());
+    heldSessions.forEach(held -> {
+      try {
+        MyHeartRateEdge.send(held, makeMessage(held));
+      } catch (Exception ex) {
+        log.warn("心拍データの送信に失敗しました。", ex);
+      }
+    });
   }
 
   @Override
@@ -78,7 +77,7 @@ public class MyHeartRateEdge extends TextWebSocketHandler {
     try {
       session.sendMessage(message);
     } catch (IOException e) {
-      e.printStackTrace();
+      log.error("WebSocketメッセージ送信失敗: session={}", session.getId(), e);
     }
   }
 
@@ -102,7 +101,7 @@ public class MyHeartRateEdge extends TextWebSocketHandler {
     return "";
   }
 
-  boolean newerSession(WebSocketSession session) {
+  boolean isNewSession(WebSocketSession session) {
     return heldSessions.stream()
       .noneMatch(held -> isSameId(held, session));
   }
