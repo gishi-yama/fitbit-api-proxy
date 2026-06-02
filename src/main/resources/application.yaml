@@ -1,3 +1,10 @@
+server:
+  # 実験・授業中に再ログインで計測が途切れないよう、ブラウザセッションを約1週間保持する。
+  # Fitbitのaccess token期限はOAuth2 provider側の値に従い、期限切れ時はrefresh tokenで更新する。
+  servlet:
+    session:
+      timeout: 7d
+
 spring:
   security:
     oauth2:
