@@ -16,6 +16,15 @@ import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWrite
 @EnableWebSecurity
 public class SecurityConfig {
 
+  private static final boolean ALWAYS_USE_DEFAULT_SUCCESS_URL = false;
+
+  /**
+   * OAuth2ログイン成功後に保存済みリクエストを優先するため、defaultSuccessUrlを強制しない設定値を返す。
+   */
+  static boolean alwaysUseDefaultSuccessUrl() {
+    return ALWAYS_USE_DEFAULT_SUCCESS_URL;
+  }
+
   /**
    * Fitbitログイン後に静的ページへ戻すため、静的リソースも認証対象に含める。
    * 静的ファイルにアクセスして未ログインの場合は自動的にFitbitの認可画面へ遷移する。
@@ -43,7 +52,7 @@ public class SecurityConfig {
             .authorizationRequestResolver(dynamicResolver))
         .userInfoEndpoint(userInfo -> userInfo
             .userService(fitbitOAuth2UserService))
-        .defaultSuccessUrl("/HeartRate.html", true)
+        .defaultSuccessUrl("/HeartRate.html", alwaysUseDefaultSuccessUrl())
     );
 
     http.logout(Customizer.withDefaults());
