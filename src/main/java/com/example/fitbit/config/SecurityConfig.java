@@ -31,7 +31,6 @@ public class SecurityConfig {
             "/HeartRate_goal.html",
             "/JSTraining.html",
             "/JSTraining_goal.html",
-            "/heart",
             "/auth",
             "/"
         ).authenticated()
