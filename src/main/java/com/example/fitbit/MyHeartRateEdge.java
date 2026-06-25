@@ -24,22 +24,22 @@ import org.springframework.security.core.Authentication;
 @Component
 public class MyHeartRateEdge extends TextWebSocketHandler {
 
-  private final FitbitProxy fitbitProxy;
+  private final HeartRateSnapshotService heartRateSnapshotService;
   private final ObjectMapper mapper;
   private final PlainAccessLogger accessLogger;
   private final List<WebSocketSession> heldSessions;
-  /**
-   * Fitbit認証済みクライアントから取得した最新の心拍データを保持し、未認証クライアントにも配信する。
-   */
-  private volatile String lastPayloadJson = "[]";
 
   private static final Pattern GAKUSEKI_QUERY_PATTERN = Pattern.compile("^gakuseki=([bdmp][0-9]{7})");
 
 //  private static final Logger log = LoggerFactory.getLogger(MyHeartRateEdge.class);
 
+  /**
+   * WebSocket 用に心拍データ共有サービスと access log を受け取る。
+   */
   @Autowired
-  public MyHeartRateEdge(FitbitProxy fitbitProxy, ObjectMapper mapper, PlainAccessLogger accessLogger) {
-    this.fitbitProxy = fitbitProxy;
+  public MyHeartRateEdge(HeartRateSnapshotService heartRateSnapshotService,
+      ObjectMapper mapper, PlainAccessLogger accessLogger) {
+    this.heartRateSnapshotService = heartRateSnapshotService;
     this.mapper = mapper;
     this.accessLogger = accessLogger;
     this.heldSessions = new CopyOnWriteArrayList<>();
@@ -108,11 +108,7 @@ public class MyHeartRateEdge extends TextWebSocketHandler {
 
   TextMessage makeMessage(WebSocketSession session) throws IOException {
     Authentication authentication = extractAuthentication(session.getPrincipal());
-    if (authentication == null) {
-      return new TextMessage(lastPayloadJson);
-    }
-    var json = mapper.writeValueAsString(fitbitProxy.getHeartRate(authentication));
-    lastPayloadJson = json;
+    var json = mapper.writeValueAsString(heartRateSnapshotService.getHeartRate(authentication));
     return new TextMessage(json);
   }
 

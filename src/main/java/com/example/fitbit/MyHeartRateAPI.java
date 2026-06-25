@@ -13,19 +13,26 @@ import java.util.List;
 @RestController
 public class MyHeartRateAPI {
 
-  private final FitbitProxy fitbitProxy;
+  private final HeartRateSnapshotService heartRateSnapshotService;
   private final PlainAccessLogger accessLogger;
 
+  /**
+   * Web API 用に心拍データ共有サービスと access log を受け取る。
+   */
   @Autowired
-  public MyHeartRateAPI(FitbitProxy fitbitProxy, PlainAccessLogger accessLogger) {
-    this.fitbitProxy = fitbitProxy;
+  public MyHeartRateAPI(HeartRateSnapshotService heartRateSnapshotService,
+      PlainAccessLogger accessLogger) {
+    this.heartRateSnapshotService = heartRateSnapshotService;
     this.accessLogger = accessLogger;
   }
 
+  /**
+   * /edge と同じく、認証済みなら最新値、未認証なら最後に取得済みの値を返す。
+   */
   @GetMapping("heart")
   public List<FitbitProxy.OnetimeHeartRate> heart(@RequestParam String gakuseki,
       Authentication authentication) {
     accessLogger.logOnAPI(gakuseki);
-    return fitbitProxy.getHeartRate(authentication);
+    return heartRateSnapshotService.getHeartRate(authentication);
   }
 }
