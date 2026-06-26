@@ -1,7 +1,7 @@
 package com.example.fitbit;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -12,49 +12,60 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.ExecutionException;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.regex.Pattern;
+import org.springframework.security.core.Authentication;
 
-@Log4j2
+@Slf4j
 @Component
 public class MyHeartRateEdge extends TextWebSocketHandler {
 
-  private final FitbitProxy fitbitProxy;
+  private final HeartRateSnapshotService heartRateSnapshotService;
   private final ObjectMapper mapper;
   private final PlainAccessLogger accessLogger;
   private final List<WebSocketSession> heldSessions;
 
   private static final Pattern GAKUSEKI_QUERY_PATTERN = Pattern.compile("^gakuseki=([bdmp][0-9]{7})");
 
+//  private static final Logger log = LoggerFactory.getLogger(MyHeartRateEdge.class);
+
+  /**
+   * WebSocket 用に心拍データ共有サービスと access log を受け取る。
+   */
   @Autowired
-  public MyHeartRateEdge(FitbitProxy fitbitProxy, ObjectMapper mapper, PlainAccessLogger accessLogger) {
-    this.fitbitProxy = fitbitProxy;
+  public MyHeartRateEdge(HeartRateSnapshotService heartRateSnapshotService,
+      ObjectMapper mapper, PlainAccessLogger accessLogger) {
+    this.heartRateSnapshotService = heartRateSnapshotService;
     this.mapper = mapper;
     this.accessLogger = accessLogger;
-    this.heldSessions = new ArrayList<>();
+    this.heldSessions = new CopyOnWriteArrayList<>();
   }
 
   @Override
   public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-    if (newerSession(session)) {
+    if (isNewSession(session)) {
       String gakuseki = splitGakusekiFromQueryOf(session);
       accessLogger.logOnEdge(gakuseki);
       heldSessions.add(session);
     }
-    MyHeartRateEdge.send(session, makeMessage());
+    MyHeartRateEdge.send(session, makeMessage(session));
   }
 
   @Scheduled(fixedDelayString = "PT1M")
-  public void pushMessage() throws IOException, ExecutionException, InterruptedException {
-    log.info("push message to " + heldSessions.size() + " clients.");
-    var newMessage = makeMessage();
-    heldSessions.stream()
-      .filter(WebSocketSession::isOpen)
-      .forEach(held -> MyHeartRateEdge.send(held, newMessage));
+  public void pushMessage() {
+    heldSessions.removeIf(s -> !s.isOpen());
+    log.info("push message to {} clients.", heldSessions.size());
+    heldSessions.forEach(held -> {
+      try {
+        MyHeartRateEdge.send(held, makeMessage(held));
+      } catch (Exception ex) {
+        log.warn("心拍データの送信に失敗しました。", ex);
+      }
+    });
   }
 
   @Override
@@ -66,7 +77,7 @@ public class MyHeartRateEdge extends TextWebSocketHandler {
     try {
       session.sendMessage(message);
     } catch (IOException e) {
-      e.printStackTrace();
+      log.error("WebSocketメッセージ送信失敗: session={}", session.getId(), e);
     }
   }
 
@@ -90,14 +101,22 @@ public class MyHeartRateEdge extends TextWebSocketHandler {
     return "";
   }
 
-  boolean newerSession(WebSocketSession session) {
+  boolean isNewSession(WebSocketSession session) {
     return heldSessions.stream()
       .noneMatch(held -> isSameId(held, session));
   }
 
-  TextMessage makeMessage() throws IOException, ExecutionException, InterruptedException {
-    var json = mapper.writeValueAsString(fitbitProxy.getHeartRate());
+  TextMessage makeMessage(WebSocketSession session) throws IOException {
+    Authentication authentication = extractAuthentication(session.getPrincipal());
+    var json = mapper.writeValueAsString(heartRateSnapshotService.getHeartRate(authentication));
     return new TextMessage(json);
+  }
+
+  private Authentication extractAuthentication(Principal principal) {
+    if (principal instanceof Authentication authentication && authentication.isAuthenticated()) {
+      return authentication;
+    }
+    return null;
   }
 
 }

@@ -2,7 +2,7 @@ package com.example.fitbit;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.io.IOException;
@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Log4j2
-@Repository
+@Component
 public class PlainAccessLogger {
 
   @Value("${access.logging.path}")
@@ -40,7 +40,7 @@ public class PlainAccessLogger {
         var line = String.join(",", query, timestamp);
         Files.write(Paths.get(loggingPath), List.of(line), StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
       } catch (IOException e) {
-        e.printStackTrace();
+        log.error("アクセスログ書き込み失敗: path={}", loggingPath, e);
       }
     }
   }

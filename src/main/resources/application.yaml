@@ -1,12 +1,40 @@
+server:
+  # 実験・授業中に再ログインで計測が途切れないよう、ブラウザセッションを約1週間保持する。
+  # Fitbitのaccess token期限はOAuth2 provider側の値に従い、期限切れ時はrefresh tokenで更新する。
+  servlet:
+    session:
+      timeout: 7d
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          fitbit:
+            provider: fitbit
+            client-id: ${clientId}
+            client-secret: ${clientSecret}
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            scope:
+              - heartrate
+              - profile
+        provider:
+          fitbit:
+            authorization-uri: https://www.fitbit.com/oauth2/authorize
+            token-uri: https://api.fitbit.com/oauth2/token
+            user-info-uri: https://api.fitbit.com/1/user/-/profile.json
+            user-name-attribute: encodedId
+
 fitbit:
   api:
-    clientId: # Here's your id
-    clientSecret: # Here's your code
-    callbackURL: # Here's your url
+    base-url: https://api.fitbit.com
+
 access:
   logging:
-    path: /tmp/gakuseki.
+    path: ${ACCESS_LOG_PATH:/tmp/gakuseki.txt}
+
 ngrok:
   command: "http --region=jp 8080"
   enabled: false
-  auth-token: # Here's your token
+  auth-token:
